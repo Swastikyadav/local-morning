@@ -8,6 +8,8 @@ module.exports = class Server {
     this.app = express();
     this.setConfiguration();
     this.setRoutes();
+    this.error404Handler();
+    this.handleErrors();
   }
 
   setConfiguration() {
@@ -27,5 +29,24 @@ module.exports = class Server {
 
   setRoutes() {
     this.app.use("/api/v1/user", UserRouter)
+  }
+
+  error404Handler() {
+    this.app.use((req, res) => {
+      res.status(404).json({
+        message: "Not Found",
+        status_code: 404,
+      })
+    });
+  }
+
+  handleErrors() {
+    this.app.use((error, req, res, next) => {
+      const errorStatus = req.errorStatus || 500;
+      res.status(errorStatus).json({
+        message: error.message || "Something Went Wrong, Please Try Again",
+        status_code: errorStatus,
+      })
+    })
   }
 }

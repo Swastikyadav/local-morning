@@ -1,5 +1,7 @@
 const express = require("express");
 const { createUser } = require("../../../controller/UserController");
+const GlobalMiddleWares = require("../../../middlewares/GlobalmiddleWare");
+const UserValidators = require("../../../validators/UserValidators");
 
 const { Router } = express;
 
@@ -10,7 +12,12 @@ class UserRouter {
   }
 
   postRoutes() {
-    this.router.post("/signup", createUser)
+    this.router.post(
+      "/signup",
+      UserValidators.signUp(),
+      GlobalMiddleWares.checkError,
+      createUser
+    )
   }
 }
 

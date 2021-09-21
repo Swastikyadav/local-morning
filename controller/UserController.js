@@ -8,9 +8,9 @@ class UserController {
 
     try {
       const newUser = await new User(data).save();
-      res.status(200).send({newUser, msg: "New user account created"});
-    } catch (error) {
-      res.send(error);
+      res.status(200).json({newUser, msg: "New user account created"});
+    } catch (err) {
+      next(err);
     }
   }
 }
