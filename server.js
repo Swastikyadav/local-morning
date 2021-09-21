@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const getEnvVariable = require("./environments/env");
 const UserRouter = require("./routes/api/v1/UserRouter");
-const bodyParser = require("body-parser");
 
 module.exports = class Server {
   constructor() {
@@ -22,7 +21,8 @@ module.exports = class Server {
   }
 
   configureBodyParser() {
-    this.app.use(bodyParser.urlencoded({extended: true}));
+    this.app.use(express.urlencoded({extended: true}));
+    this.app.use(express.json());
   }
 
   setRoutes() {
