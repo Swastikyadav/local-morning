@@ -38,4 +38,10 @@ userSchema.pre("save", function(next) {
   next();
 });
 
+userSchema.methods.validatePassword = function(password) {
+  const isMatched = bcrypt.compareSync(password, this.password);
+
+  return isMatched;
+}
+
 module.exports = model("User", userSchema);

@@ -1,5 +1,5 @@
 const express = require("express");
-const { createUser } = require("../../../controller/UserController");
+const { createUser, login } = require("../../../controller/UserController");
 const GlobalMiddleWares = require("../../../middlewares/GlobalmiddleWare");
 const UserValidators = require("../../../validators/UserValidators");
 
@@ -17,7 +17,14 @@ class UserRouter {
       UserValidators.signUp(),
       GlobalMiddleWares.checkError,
       createUser
-    )
+    );
+
+    this.router.post(
+      "/login",
+      UserValidators.login(),
+      GlobalMiddleWares.checkError,
+      login
+    );
   }
 }
 

@@ -1,4 +1,6 @@
 const { validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
+const getEnvVariable = require("../environments/env");
 
 class GlobalMiddleWares {
   static checkError(req, res, next) {
@@ -11,6 +13,10 @@ class GlobalMiddleWares {
     }
 
     next();
+  }
+
+  static generateToken(payload) {
+    return jwt.sign(payload, getEnvVariable().jwtSecret);
   }
 }
 

@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const { generateToken } = require("../middlewares/GlobalmiddleWare");
 
 class UserController {
   static async createUser(req, res, next) {
@@ -12,6 +13,27 @@ class UserController {
     } catch (err) {
       next(err);
     }
+  }
+
+  static async login(req, res, next) {
+    const { email, password } = req.body;
+
+    try {
+      const user = await User.findOne({email});
+
+      if(user.validatePassword(password)) {
+        const jwtToken = generateToken({user_id: user._id, email});
+        
+        res.status(200).json({
+          jwtToken,
+          user
+        });
+      } else {
+        next(new Error("Password is incorrect!"));
+      }
+    } catch (error) {
+      next(error);
+    }     
   }
 }
 
