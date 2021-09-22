@@ -9,6 +9,9 @@ class UserController {
 
     try {
       const newUser = await new User(data).save();
+
+      // Send verification email
+
       res.status(200).json({newUser, msg: "New user account created"});
     } catch (err) {
       next(err);
@@ -34,6 +37,45 @@ class UserController {
     } catch (error) {
       next(error);
     }     
+  }
+
+  static async verifyUser(req, res, next) {
+    try {
+      const { email } = req.body;
+      const verifiedUser = await User.findOneAndUpdate({email}, {verified: true}, {new: true});
+
+      res.status(200).json({verifiedUser, msg: "User account is now verified"});
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async forgotPassword(req, res, next) {
+    try {
+      const { email } = req.body;
+
+      const user = await User.findOne({email});
+
+      // Send password reset link to email
+
+      res.status(200).json({msg: "Password reset link sent to email"});
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async resetPassword(req, res, next) {
+    try {
+      const { newPassword } = req.body;
+      const { id } = req.params;
+
+      const updatedUser = await User.findByIdAndUpdate(id, {password: newPassword}, {new: true});
+      await updatedUser.save();
+
+      res.status(200).json({updatedUser, msg: "Password updated successful"});
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

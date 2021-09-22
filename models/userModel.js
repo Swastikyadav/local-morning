@@ -27,6 +27,11 @@ const userSchema = new Schema({
     type: String,
     enum: ["Admin", "Author", "Reader"],
     default: "Reader",
+  },
+
+  verified: {
+    type: Boolean,
+    default: false,
   }
 }, {timestamps: true});
 
