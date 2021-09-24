@@ -1,6 +1,6 @@
 const expressValidator = require("express-validator");
 const User = require("../models/userModel");
-const { body } = expressValidator;
+const { body, param } = expressValidator;
 
 class UserValidators {
   static signUp() {
@@ -44,11 +44,11 @@ class UserValidators {
 
   static verifyUser() {
     return [
-      body("email", "Invalid Email").isEmail().custom((email, {req}) => {
-        return User.findOne({email})
+      param("id").custom((id, {req}) => {
+        return User.findOne({_id: id})
           .then(user => {
             if(!user) {
-              throw new Error("Email does not exist, Please signup");
+              throw new Error("User does not exist, Please signup");
             }
           
             if(user.verified) {

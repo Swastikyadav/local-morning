@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const { generateToken } = require("../middlewares/GlobalmiddleWare");
+const NodeMailer = require("../utils/NodeMailer");
 
 class UserController {
   static async createUser(req, res, next) {
@@ -11,6 +12,11 @@ class UserController {
       const newUser = await new User(data).save();
 
       // Send verification email
+      await NodeMailer.sendEmail({
+        to: [email],
+        subject: "Email Verification",
+        html: `<p>Hello ${name}, Please verify your account here: <a href="https://frontend-verification-link.app?user_id=${newUser._id}">Verification Link</a> <small>${newUser._id}</small>`,
+      });
 
       res.status(200).json({newUser, msg: "New user account created"});
     } catch (err) {
@@ -41,8 +47,8 @@ class UserController {
 
   static async verifyUser(req, res, next) {
     try {
-      const { email } = req.body;
-      const verifiedUser = await User.findOneAndUpdate({email}, {verified: true}, {new: true});
+      const { id } = req.params;
+      const verifiedUser = await User.findByIdAndUpdate(id, {verified: true}, {new: true});
 
       res.status(200).json({verifiedUser, msg: "User account is now verified"});
     } catch (error) {
@@ -57,6 +63,11 @@ class UserController {
       const user = await User.findOne({email});
 
       // Send password reset link to email
+      await NodeMailer.sendEmail({
+        to: [email],
+        subject: "Password Reset Link",
+        html: `<p>Hello ${user.name}, Here is your password reset link: <a href="https://frontend-password-reset-link.app?user_id=${user._id}">Reset Your Password</a> <small>${user._id}</small>`,
+      });
 
       res.status(200).json({msg: "Password reset link sent to email"});
     } catch (error) {
