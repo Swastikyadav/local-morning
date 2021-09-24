@@ -21,6 +21,7 @@ const userSchema = new Schema({
     required: true,
     minlength: 8,
     maxlength: 16,
+    default: "1a2b3c4d"
   },
 
   role: {

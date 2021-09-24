@@ -2,6 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const getEnvVariable = require("./environments/env");
 const UserRouter = require("./routes/api/v1/UserRouter");
+const oAuthRouter = require("./routes/api/v1/oAuthRouter");
+const passport = require("passport");
+require("./oAuth/passportSetup");
 
 module.exports = class Server {
   constructor() {
@@ -15,6 +18,7 @@ module.exports = class Server {
   setConfiguration() {
     this.connectMongoDb();
     this.configureBodyParser();
+    this.app.use(passport.initialize());
   }
 
   connectMongoDb() {
@@ -28,7 +32,8 @@ module.exports = class Server {
   }
 
   setRoutes() {
-    this.app.use("/api/v1/user", UserRouter)
+    this.app.use("/api/v1/user", UserRouter);
+    this.app.use("/api/v1/oAuth", oAuthRouter);
   }
 
   error404Handler() {

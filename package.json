@@ -16,6 +16,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.7",
     "nodemailer": "^6.6.5",
-    "nodemailer-sendgrid-transport": "^0.2.0"
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth20": "^2.0.0"
   }
 }
