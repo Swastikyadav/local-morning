@@ -16,6 +16,7 @@ class UserRouter {
   getRoutes() {
     this.router.get(
       "/forgotpassword",
+      GlobalMiddleWares.isNotLoggedIn,
       UserValidators.forgotPassword(),
       GlobalMiddleWares.checkError,
       forgotPassword
@@ -25,6 +26,7 @@ class UserRouter {
   postRoutes() {
     this.router.post(
       "/signup",
+      GlobalMiddleWares.isNotLoggedIn,
       UserValidators.signUp(),
       GlobalMiddleWares.checkError,
       createUser
@@ -32,6 +34,7 @@ class UserRouter {
 
     this.router.post(
       "/login",
+      GlobalMiddleWares.isNotLoggedIn,
       UserValidators.login(),
       GlobalMiddleWares.checkError,
       login
@@ -39,7 +42,6 @@ class UserRouter {
   }
 
   patchRoutes() {
-    // Authorized Route - Verify Jwt Token
     this.router.patch(
       "/verify/:id",
       UserValidators.verifyUser(),
@@ -49,6 +51,7 @@ class UserRouter {
 
     this.router.patch(
       "/resetpassword/:id",
+      GlobalMiddleWares.isNotLoggedIn,
       UserValidators.resetPassword(),
       GlobalMiddleWares.checkError,
       resetPassword
