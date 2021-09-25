@@ -26,7 +26,7 @@ class GlobalMiddleWares {
     if (!token) {
       next();
     } else {
-      res.status(400).json({msg: "This action is only available if logged out."});
+      next(new Error("Already logged in, Log out to perform this action"));
     }
   }
 
@@ -36,8 +36,28 @@ class GlobalMiddleWares {
 
     if(token) {
       // Verify Jwt token and get decoded user out of it.
+      jwt.verify(token, getEnvVariable().jwtSecret, (err, decoded) => {
+        if(err) {
+          next(err);
+          return;
+        }
+
+        req.user = decoded;
+        next();
+      });
     } else {
-      res.status(400).json({msg: "UnAuthorized Access!"});
+      next(new Error("UnAuthenticated Access!"));
+    }
+  }
+
+  static isAuthorized(req, res, next) {
+    const { user_id } = req.user;
+    const { id } = req.params;
+
+    if(user_id === id) {
+      next();
+    } else {
+      next(new Error("UnAuthorized Access!"));
     }
   }
 }

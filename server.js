@@ -32,6 +32,7 @@ module.exports = class Server {
   }
 
   setRoutes() {
+    this.app.use("/uploads", express.static("uploads"));
     this.app.use("/api/v1/user", UserRouter);
     this.app.use("/api/v1/oAuth", oAuthRouter);
   }

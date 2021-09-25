@@ -88,6 +88,40 @@ class UserController {
       next(error);
     }
   }
+
+  static async updateProfile(req, res, next) {
+    try {
+      const { name } = req.body;
+      const { avatar } = req.files;
+      let data;
+
+      if (avatar && name ) {
+        data = {
+          avatar: `http://localhost:5000/${avatar[0].path}`,
+          name,
+        }
+      } else if(avatar && !name) {
+        data = {avatar: `http://localhost:5000/${avatar[0].path}`}
+      } else if(name && !avatar) {
+        data = {name}
+      }
+
+      const updatedUser = await User.findOneAndUpdate({email: req.user.email}, data, {new: true});
+      res.status(200).json({updatedUser, msg: "User updated successfuly"});
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async profile(req, res, next) {
+    try {
+      const { email } = req.user;
+      const user = await User.findOne({email});
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = UserController;

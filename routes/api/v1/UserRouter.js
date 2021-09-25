@@ -1,7 +1,16 @@
 const express = require("express");
-const { createUser, login, verifyUser, forgotPassword, resetPassword } = require("../../../controller/UserController");
+const { 
+  createUser,
+  login,
+  verifyUser,
+  forgotPassword,
+  resetPassword,
+  updateProfile,
+  profile,
+} = require("../../../controller/UserController");
 const GlobalMiddleWares = require("../../../middlewares/GlobalmiddleWare");
 const UserValidators = require("../../../validators/UserValidators");
+const Multer = require("../../../utils/Multer");
 
 const { Router } = express;
 
@@ -13,7 +22,14 @@ class UserRouter {
     this.getRoutes();
   }
 
+  // Current Authenticated user profile
   getRoutes() {
+    this.router.get(
+      "/profile",
+      GlobalMiddleWares.isLoggedIn,
+      profile
+    );
+
     this.router.get(
       "/forgotpassword",
       GlobalMiddleWares.isNotLoggedIn,
@@ -55,6 +71,15 @@ class UserRouter {
       UserValidators.resetPassword(),
       GlobalMiddleWares.checkError,
       resetPassword
+    );
+
+    // Authenticated and Authorized route
+    this.router.patch(
+      "/update/:id",
+      GlobalMiddleWares.isLoggedIn,
+      GlobalMiddleWares.isAuthorized,
+      Multer.upload().fields([{name: "avatar", maxCount: 1}, {name: "name", maxCount: 1}]),
+      updateProfile,
     );
   }
 }

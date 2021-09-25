@@ -30,6 +30,11 @@ const userSchema = new Schema({
     default: "Reader",
   },
 
+  avatar: {
+    type: String,
+    default: "https://www.searchpng.com/wp-content/uploads/2020/02/User-Profile-Icon-715x715.jpg",
+  },
+
   verified: {
     type: Boolean,
     default: false,
