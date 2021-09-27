@@ -113,10 +113,21 @@ class UserController {
     }
   }
 
-  static async profile(req, res, next) {
+  static async currentUserProfile(req, res, next) {
     try {
       const { email } = req.user;
       const user = await User.findOne({email});
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async userProfile(req, res, next) {
+    try {
+      const { id } = req.params;
+      const user = await User.findById(id);
+
       res.status(200).json(user);
     } catch (error) {
       next(error);

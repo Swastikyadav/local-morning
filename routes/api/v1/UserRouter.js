@@ -6,7 +6,8 @@ const {
   forgotPassword,
   resetPassword,
   updateProfile,
-  profile,
+  currentUserProfile,
+  userProfile,
 } = require("../../../controller/UserController");
 const GlobalMiddleWares = require("../../../middlewares/GlobalmiddleWare");
 const UserValidators = require("../../../validators/UserValidators");
@@ -27,7 +28,14 @@ class UserRouter {
     this.router.get(
       "/profile",
       GlobalMiddleWares.isLoggedIn,
-      profile
+      currentUserProfile
+    );
+
+    this.router.get(
+      "/profile/:id",
+      UserValidators.userProfile(),
+      GlobalMiddleWares.checkError,
+      userProfile
     );
 
     this.router.get(

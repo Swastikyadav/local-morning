@@ -96,6 +96,22 @@ class UserValidators {
         }),
     ];
   }
+
+  static userProfile() {
+    return [
+      param("id").custom((id, {req}) => {
+        return User.findOne({_id: id})
+          .then(user => {
+            if(!user) {
+              console.log("no user");
+              throw new Error("User not found");
+            }
+
+            return true;
+          })
+      }),
+    ];
+  }
 }
 
 module.exports = UserValidators;
