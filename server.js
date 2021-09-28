@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const getEnvVariable = require("./environments/env");
 const UserRouter = require("./routes/api/v1/UserRouter");
 const oAuthRouter = require("./routes/api/v1/oAuthRouter");
+const PostRouter = require("./routes/api/v1/PostRouter");
 const passport = require("passport");
 require("./oAuth/passportSetup");
 
@@ -35,6 +36,7 @@ module.exports = class Server {
     this.app.use("/uploads", express.static("uploads"));
     this.app.use("/api/v1/user", UserRouter);
     this.app.use("/api/v1/oAuth", oAuthRouter);
+    this.app.use("/api/v1/post", PostRouter);
   }
 
   error404Handler() {

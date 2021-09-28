@@ -38,7 +38,12 @@ const userSchema = new Schema({
   verified: {
     type: Boolean,
     default: false,
-  }
+  },
+
+  postsId: [{
+    type: Schema.Types.ObjectId,
+    ref: "Post"
+  }]
 }, {timestamps: true});
 
 userSchema.pre("save", function(next) {
