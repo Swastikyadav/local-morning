@@ -1,7 +1,8 @@
 const express = require("express");
 const PostValidators = require("../../../validators/PostValidators");
 const GlobalMiddleWares = require("../../../middlewares/GlobalmiddleWare");
-const { createPost } = require("../../../controller/PostController");
+const PostMiddleWares = require("../../../middlewares/PostmiddleWare");
+const { createPost, deletePost } = require("../../../controller/PostController");
 
 const { Router } = express;
 
@@ -9,6 +10,7 @@ class PostRouter {
   constructor() {
     this.router = Router();
     this.postRoutes();
+    this.deleteRoutes();
   }
 
   postRoutes() {
@@ -22,7 +24,12 @@ class PostRouter {
   }
 
   deleteRoutes() {
-
+    this.router.delete(
+      "/delete/:postId",
+      GlobalMiddleWares.isLoggedIn,
+      PostMiddleWares.isAuthorized,
+      deletePost
+    );
   }
 }
 

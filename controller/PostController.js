@@ -29,6 +29,19 @@ class PostController {
       next(error);
     }
   }
+
+  static async deletePost(req, res, next) {
+    try {
+      const { postId } = req.params;
+      
+      const postDoc = await Post.findByIdAndRemove(postId);
+      await postDoc.remove();
+      
+      res.status(200).json({msg: "Post deletion successful"});
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = PostController;

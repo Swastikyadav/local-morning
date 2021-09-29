@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const { Schema, model } = mongoose;
+const { Schema, model, Document } = mongoose;
+
+const Tag = require("../models/tagModel");
 
 const postSchema = new Schema({
   content: {
@@ -28,5 +30,13 @@ const postSchema = new Schema({
     ref: "Tag",
   }]
 }, {timestamps: true});
+
+postSchema.pre("remove", function(next) {
+  this.tags.forEach(async (tag) => {
+    await Tag.findByIdAndUpdate(tag._id, {$pull: { posts: this._id }});
+  });
+  
+  next();
+});
 
 module.exports = model("Post", postSchema);
