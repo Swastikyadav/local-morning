@@ -1,11 +1,26 @@
 const Post = require("../models/postModel");
 const User = require("../models/userModel");
+const Tag = require("../models/tagModel");
 
 class PostController {
   static async createPost(req, res, next) {
     try {
       req.body.authorId = req.user.user_id;
-      const newPost = await Post.create(req.body);
+      const { content, authorId, tags } = req.body;
+      
+      const newPost = await Post.create({content, authorId});
+      const tagsArray = tags && tags.split(",");
+      tags && tagsArray.forEach(async tag => {
+        const foundTag = await Tag.findOne({name: tag});
+        if (foundTag) {
+          await Tag.findByIdAndUpdate(foundTag._id, {$push: { posts: newPost._id }});
+          await Post.findByIdAndUpdate(newPost._id, {$push: { tags: foundTag._id }});
+        } else {
+          const newTag = await Tag.create({name: tag});
+          await Tag.findByIdAndUpdate(newTag._id, {$push: { posts: newPost._id }});
+          await Post.findByIdAndUpdate(newPost._id, {$push: { tags: newTag._id }});
+        }
+      });
 
       await User.findByIdAndUpdate(newPost.authorId, {$push: { postsId: newPost._id }});
       
