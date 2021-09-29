@@ -42,6 +42,19 @@ class PostController {
       next(error);
     }
   }
+
+  static async likePost(req, res, next) {
+    try {
+      const { user_id } = req.user;
+      const { postId } = req.params;
+
+      const updatedPost = await Post.findByIdAndUpdate(postId, {$push: { likes: user_id }}, {new: true});
+
+      res.status(200).json(updatedPost);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = PostController;

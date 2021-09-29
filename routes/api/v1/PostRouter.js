@@ -2,7 +2,7 @@ const express = require("express");
 const PostValidators = require("../../../validators/PostValidators");
 const GlobalMiddleWares = require("../../../middlewares/GlobalmiddleWare");
 const PostMiddleWares = require("../../../middlewares/PostmiddleWare");
-const { createPost, deletePost } = require("../../../controller/PostController");
+const { createPost, deletePost, likePost } = require("../../../controller/PostController");
 
 const { Router } = express;
 
@@ -10,6 +10,7 @@ class PostRouter {
   constructor() {
     this.router = Router();
     this.postRoutes();
+    this.patchRoutes();
     this.deleteRoutes();
   }
 
@@ -20,6 +21,14 @@ class PostRouter {
       PostValidators.create(),
       GlobalMiddleWares.checkError,
       createPost,
+    );
+  }
+
+  patchRoutes() {
+    this.router.patch(
+      "/like/:postId",
+      GlobalMiddleWares.isLoggedIn,
+      likePost
     );
   }
 
