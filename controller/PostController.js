@@ -48,9 +48,16 @@ class PostController {
       const { user_id } = req.user;
       const { postId } = req.params;
 
-      const updatedPost = await Post.findByIdAndUpdate(postId, {$push: { likes: user_id }}, {new: true});
+      const post = await Post.findById(postId);
+      const alreadyLiked = post.likes.includes(user_id);
 
-      res.status(200).json(updatedPost);
+      if(!alreadyLiked) {
+        await Post.findByIdAndUpdate(postId, {$push: { likes: user_id }});
+      } else {
+        await Post.findByIdAndUpdate(postId, {$pull: { likes: user_id }});
+      }
+
+      res.status(200).json(post);
     } catch (error) {
       next(error);
     }
