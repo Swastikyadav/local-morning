@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Post = require("./postModel");
+const Tag = require("./tagModel");
 
 const { Schema, model } = mongoose;
 
@@ -56,9 +57,21 @@ userSchema.pre("save", function(next) {
 });
 
 userSchema.pre("remove", async function(next) {
-  await Post.deleteMany({authorId: this._id});
-
-  next();
+  try {
+    this.postsId.forEach(async postId => {
+      const posts = await Post.findById(postId).populate({path: "tags"});
+  
+      posts.tags.forEach(async tag => {
+        await Tag.findByIdAndUpdate(tag._id, {$pull: {posts: postId}});
+      });
+    });
+  
+    await Post.deleteMany({authorId: this._id});
+    
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 userSchema.methods.validatePassword = function(password) {
