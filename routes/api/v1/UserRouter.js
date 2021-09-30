@@ -8,6 +8,7 @@ const {
   updateProfile,
   currentUserProfile,
   userProfile,
+  deleteUser,
 } = require("../../../controller/UserController");
 const GlobalMiddleWares = require("../../../middlewares/GlobalmiddleWare");
 const UserValidators = require("../../../validators/UserValidators");
@@ -21,6 +22,7 @@ class UserRouter {
     this.postRoutes();
     this.patchRoutes();
     this.getRoutes();
+    this.deleteRoutes();
   }
 
   // Current Authenticated user profile
@@ -88,6 +90,15 @@ class UserRouter {
       GlobalMiddleWares.isAuthorized,
       Multer.upload().fields([{name: "avatar", maxCount: 1}, {name: "name", maxCount: 1}]),
       updateProfile,
+    );
+  }
+
+  deleteRoutes() {
+    this.router.delete(
+      "/delete/:id",
+      GlobalMiddleWares.isLoggedIn,
+      GlobalMiddleWares.isAuthorized,
+      deleteUser
     );
   }
 }

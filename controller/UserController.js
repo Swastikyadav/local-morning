@@ -133,6 +133,19 @@ class UserController {
       next(error);
     }
   }
+
+  static async deleteUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      
+      const userDoc = await User.findByIdAndRemove(id);
+      await userDoc.remove();
+
+      res.status(200).json({msg: "User deletion successful"});
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = UserController;
