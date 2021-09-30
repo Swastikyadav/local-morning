@@ -4,6 +4,7 @@ const getEnvVariable = require("./environments/env");
 const UserRouter = require("./routes/api/v1/UserRouter");
 const oAuthRouter = require("./routes/api/v1/oAuthRouter");
 const PostRouter = require("./routes/api/v1/PostRouter");
+const NewsRouter = require("./routes/api/v1/NewsRouter");
 const passport = require("passport");
 require("./oAuth/passportSetup");
 
@@ -37,6 +38,7 @@ module.exports = class Server {
     this.app.use("/api/v1/user", UserRouter);
     this.app.use("/api/v1/oAuth", oAuthRouter);
     this.app.use("/api/v1/post", PostRouter);
+    this.app.use("/api/v1/news", NewsRouter);
   }
 
   error404Handler() {
