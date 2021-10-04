@@ -1,0 +1,86 @@
+/* Main, post section */
+.post-section {
+  min-width: 470px;
+  max-width: 470px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+  margin: 0 5px;
+  padding: 8px;
+}
+
+.post-section .post-form {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid gainsboro;
+}
+
+.post-section .post-form .textarea-container {
+  width: 80%;
+}
+
+.textarea-container textarea {
+  width: 91%;
+  padding: 15px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid gainsboro;
+}
+
+.post-section .post-form .profile-pic {
+  height: 50px;
+  border-radius: 50%;
+}
+
+.post-action-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-action-options .image-upload-icon {
+  font-size: 24px;
+  color: #00f;
+  cursor: pointer;
+}
+
+.post-action-options button {
+  padding: 5px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  background: #156FE5;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.post-card {
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid gainsboro;
+}
+
+.post-card .post-details-container {
+  display: flex;
+  align-items: center;
+}
+
+.post-card .profile-pic {
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post-card .post-detail-text h2 {
+  margin: 0;
+}
+
+.post-card .post-content {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 10px 0;
+}

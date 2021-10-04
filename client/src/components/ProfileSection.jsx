@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { AlignCenterOutlined, LikeOutlined, SettingOutlined, LogoutOutlined } from "@ant-design/icons";
 
+import "../style/profileSection.css";
+
 function Profile() {
   return (
+    <aside className="profile-section">
     <section className="profile-card">
       <div className="profile-cover-image"></div>
       <img src="https://pbs.twimg.com/profile_images/1411339822942220294/cB2H_0Rm_400x400.jpg" className="profile-pic" alt="profile-pic"/>
@@ -21,6 +24,7 @@ function Profile() {
       <Link to="#"><p><SettingOutlined /> Settings</p></Link>
       <Link to="#"><p><LogoutOutlined /> Logout</p></Link>
     </section>
+    </aside>
   );
 }
 
