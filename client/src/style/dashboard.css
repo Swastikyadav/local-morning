@@ -62,3 +62,16 @@
     margin: 10px 2rem;
   }
 }
+
+@media all and (max-width: 768px) {
+  .profile-section,
+  .news-section {
+    display: none;
+  }
+
+  .post-section {
+    max-width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+  }
+}

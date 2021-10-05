@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import Home from "./components/Home";
-import Dashboard from "./components/Dashboard"
+import Dashboard from "./components/Dashboard";
+import MobileNavigation from "./components/MobileNavigation";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,7 +32,12 @@ function App() {
 
   return (
     <>
-      {!user && !localStorage.token ? privateRoutes() : publicRoutes()}
+      {!user && !localStorage.token ? (
+        <>
+          <MobileNavigation />
+          {privateRoutes()}
+        </>
+      ) : publicRoutes()}
     </>
   );
 }

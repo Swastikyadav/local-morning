@@ -1,0 +1,29 @@
+.mobile-navigation {
+  width: 100%;
+  height: 50px;
+  background: #fff;
+  border-top: 1px solid gray;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: none;
+}
+
+.mobile-navigation .nav-links-container {
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.mobile-navigation .nav-links-container .anticon {
+  font-size: 24px;
+}
+
+/* Media Query */
+
+@media all and (max-width: 768px) {
+  .mobile-navigation {
+    display: block;
+  }
+}
