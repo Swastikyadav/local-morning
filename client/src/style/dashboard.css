@@ -32,6 +32,23 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
 }
 
+.news-section form {
+  margin: 15px 0;
+}
+
+.news-section .search-input {
+  outline: none;
+}
+
+.news-section .search-btn {
+  cursor: pointer;
+}
+
+.news-section .search-input,
+.news-section .search-btn {
+  padding: 8px;
+}
+
 /* Media Query */
 
 @media all and (max-width: 1300px) {
