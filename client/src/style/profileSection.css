@@ -1,9 +1,4 @@
 /* Profile card */
-.profile-section {
-  min-width: 250px;
-  max-width: 250px;
-}
-
 .profile-card {
   border: 1px solid rgb(184, 184, 184);
   box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);

@@ -1,0 +1,25 @@
+.news-section .heading {
+  font-size: 24px;
+  margin: 0;
+  color: #156FE5;
+}
+
+.news-section .news-card {
+  margin: 15px 0;
+}
+
+.news-section .news-card small {
+  font-size: 12px;
+  color: gray;
+  font-weight: bold;
+}
+
+.news-section .news-card p {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.815);
+  cursor: pointer;
+}
+
+.news-section .news-card p:hover {
+  color: blue;
+} 

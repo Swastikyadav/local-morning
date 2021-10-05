@@ -5,9 +5,31 @@
   margin: 10px 12rem;
 }
 
-.news-section {
-  width: 360px;
+/* Profile section */
+.profile-section {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+/* Post section */
+.post-section {
+  min-width: 470px;
+  max-width: 470px;
   background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+  margin: 0 5px;
+  padding: 8px;
+}
+
+/* News Section */
+.news-section {
+  min-width: 360px;
+  max-width: 360px;
+  background: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
 }
 
 /* Media Query */

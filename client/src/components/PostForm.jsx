@@ -1,5 +1,8 @@
 import { PictureOutlined } from "@ant-design/icons";
 import { Input } from "antd";
+
+import "../style/postForm.css";
+
 const { TextArea } = Input;
 
 function PostForm() {
