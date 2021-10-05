@@ -1,12 +1,14 @@
-import "../style/postFeed.css";
+import { LikeOutlined } from "@ant-design/icons";
 
-function PostFeed() {
+import "../style/postCard.css";
+
+function PostCard() {
   return (
     <article className="post-card">
       <div className="post-details-container">
-        <img src="https://pbs.twimg.com/profile_images/1411339822942220294/cB2H_0Rm_400x400.jpg" className="profile-pic" alt="profile-pic"/>
+        <img src="https://pbs.twimg.com/profile_images/1387758016716578821/Srn36e3M_400x400.png" className="profile-pic" alt="profile-pic"/>
         <div className="post-detail-text">
-          <h2>Swastik Yadav</h2>
+          <h2>Kyle PrinsLoo</h2>
           <small>4 Hours ago</small>
         </div>
       </div>
@@ -18,8 +20,10 @@ function PostFeed() {
 
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlrZqTCInyg6RfYC7Ape20o-EWP1EN_A8fOA&usqp=CAU" alt="doggy" width="100%" height="250"/>
       </p>
+
+      <button className="like-btn"><LikeOutlined /> 111</button>
     </article>
   );
 }
 
-export default PostFeed;
+export default PostCard;

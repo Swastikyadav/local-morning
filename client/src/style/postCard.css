@@ -84,3 +84,9 @@
   line-height: 1.5;
   margin: 10px 0;
 }
+
+.post-card .like-btn {
+  font-size: 18px;
+  color: #00f;
+  cursor: pointer;
+}
