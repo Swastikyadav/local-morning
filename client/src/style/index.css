@@ -7,6 +7,14 @@ body {
   padding: 0;
 }
 
+a {
+  color: #000;
+}
+
+.active {
+  color: #00f;
+}
+
 /* Media Query */
 
 @media all and (max-width: 768px) {
