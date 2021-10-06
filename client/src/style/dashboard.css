@@ -7,14 +7,12 @@
 
 /* Profile section */
 .profile-section {
-  min-width: 250px;
-  max-width: 250px;
+  width: 25rem;
 }
 
 /* Post section */
 .post-section {
-  min-width: 470px;
-  max-width: 470px;
+  width: 47rem;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
@@ -24,8 +22,7 @@
 
 /* News Section */
 .news-section {
-  min-width: 360px;
-  max-width: 360px;
+  width: 36rem;
   background: #fff;
   padding: 8px;
   border-radius: 8px;
@@ -67,8 +64,8 @@
   .profile-section,
   .news-section,
   .post-section {
-    margin: 0 auto;
-    max-width: 100%;
-    min-width: 0;
+    margin: 10px auto;
+    width: 90%;
+    margin-bottom: 60px;
   }
 }
