@@ -21,7 +21,8 @@
   border: 2px solid #fff;
   position: absolute;
   top: 60px;
-  left: 78px;
+  left: 50%;
+  margin-left: -40px;
 }
 
 .profile-card .profile-name,

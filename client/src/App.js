@@ -1,12 +1,28 @@
-import { useState } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 
 import Home from "./components/Home";
-import Dashboard from "./components/Dashboard";
+import Layout from "./components/Layout";
 import MobileNavigation from "./components/MobileNavigation";
 
-function App() {
+function App(props) {
   const [user, setUser] = useState(null);
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function updateScreenSize() {
+      setScreenSize(window.innerWidth);
+      if(screenSize >= 769) {
+        (props.location.pathname !== "/dashboard") && props.history.push("/dashboard");
+      } else {
+        (props.location.pathname !== "/dashboard/posts") && props.history.push("/dashboard/posts");
+      }
+    }
+
+    window.addEventListener("resize", updateScreenSize);
+
+    return () => window.removeEventListener("resize", updateScreenSize);
+  }, [screenSize, props]);
 
   const publicRoutes = () => {
     return(
@@ -22,9 +38,9 @@ function App() {
   const privateRoutes = () => {
     return(
       <Switch>
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/dashboard" component={Layout} />
         <Route path="/">
-          <Redirect to="/dashboard" />
+          {screenSize > 768 ? <Redirect to="/dashboard" /> : <Redirect to="/dashboard/posts" />}
         </Route>
       </Switch>
     );
@@ -42,4 +58,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

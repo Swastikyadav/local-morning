@@ -65,13 +65,10 @@
 
 @media all and (max-width: 768px) {
   .profile-section,
-  .news-section {
-    display: none;
-  }
-
+  .news-section,
   .post-section {
+    margin: 0 auto;
     max-width: 100%;
     min-width: 0;
-    margin: 0 auto;
   }
 }
