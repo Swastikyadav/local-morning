@@ -7,22 +7,23 @@ import MobileNavigation from "./components/MobileNavigation";
 
 function App(props) {
   const [user, setUser] = useState(null);
-  const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const [mobileView, setMobileView] = useState(window.matchMedia("(max-width: 768px)").matches);
 
   useEffect(() => {
-    function updateScreenSize() {
-      setScreenSize(window.innerWidth);
-      if(screenSize >= 769) {
-        (props.location.pathname !== "/dashboard") && props.history.push("/dashboard");
+    const mql = window.matchMedia("(max-width: 768px)");
+    function updatemobileView(mql) {
+      setMobileView(mql.matches);
+      if(mobileView) {
+        props.history.push("/dashboard");
       } else {
-        (props.location.pathname !== "/dashboard/posts") && props.history.push("/dashboard/posts");
+        props.history.push("/dashboard/posts");
       }
     }
 
-    window.addEventListener("resize", updateScreenSize);
+    mql.addListener(updatemobileView);
 
-    return () => window.removeEventListener("resize", updateScreenSize);
-  }, [screenSize, props]);
+    return () => mql.removeListener(updatemobileView);
+  }, [mobileView, props]);
 
   const publicRoutes = () => {
     return(
@@ -40,7 +41,7 @@ function App(props) {
       <Switch>
         <Route path="/dashboard" component={Layout} />
         <Route path="/">
-          {screenSize > 768 ? <Redirect to="/dashboard" /> : <Redirect to="/dashboard/posts" />}
+          {mobileView ? <Redirect to="/dashboard/posts" /> : <Redirect to="/dashboard" />}
         </Route>
       </Switch>
     );
