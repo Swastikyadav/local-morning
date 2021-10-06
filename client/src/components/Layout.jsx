@@ -4,10 +4,12 @@ import ProfileSection from "./ProfileSection";
 import NewsSection from "./NewsSection";
 import PostSection from "./PostSection";
 import Dashboard from "./Dashboard";
+import UserProfile from "./UserProfile";
 
 function Layout() {
   return (
     <Switch>
+      <Route path="/dashboard/profile/:id" component={UserProfile} />
       <Route path="/dashboard/profile" component={ProfileSection} />
       <Route path="/dashboard/news" component={NewsSection} />
       <Route path="/dashboard/posts" component={PostSection} />

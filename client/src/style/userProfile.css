@@ -1,0 +1,23 @@
+.user-profile {
+  width: 100rem;
+  background: #fff;
+  margin: 20px auto;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-profile h4 {
+  font-size: 24px;
+}
+
+/* Media Query */
+
+@media all and (max-width: 768px) {
+  .user-profile {
+    flex-direction: column;
+    width: 90%;
+    margin-bottom: 50px;
+  }
+}

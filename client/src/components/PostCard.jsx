@@ -1,17 +1,20 @@
 import { LikeOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 import "../style/postCard.css";
 
 function PostCard() {
   return (
     <article className="post-card">
-      <div className="post-details-container">
-        <img src="https://pbs.twimg.com/profile_images/1387758016716578821/Srn36e3M_400x400.png" className="profile-pic" alt="profile-pic"/>
-        <div className="post-detail-text">
-          <h2>Kyle PrinsLoo</h2>
-          <small>4 Hours ago</small>
+      <Link to="/dashboard/profile/789456">
+        <div className="post-details-container">
+          <img src="https://pbs.twimg.com/profile_images/1387758016716578821/Srn36e3M_400x400.png" className="profile-pic" alt="profile-pic"/>
+          <div className="post-detail-text">
+            <h2>Kyle PrinsLoo</h2>
+            <small>4 Hours ago</small>
+          </div>
         </div>
-      </div>
+      </Link>
 
       <p className="post-content">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum doloribus iure, delectus expedita rerum commodi ullam voluptatum qui possimus officia atque iste laudantium ipsum at ut tempore magnam aspernatur nostrum.
