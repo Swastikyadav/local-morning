@@ -6,6 +6,7 @@ import PostSection from "./PostSection";
 import Dashboard from "./Dashboard";
 import UserProfile from "./UserProfile";
 import PostLists from "./PostLists";
+import Settings from "./Settings";
 
 function Layout() {
   return (
@@ -16,6 +17,7 @@ function Layout() {
       <Route path="/dashboard/profile" component={ProfileSection} />
       <Route path="/dashboard/news" component={NewsSection} />
       <Route path="/dashboard/posts" component={PostSection} />
+      <Route path="/dashboard/settings" component={Settings} />
       <Route path="/dashboard" component={Dashboard} />
     </Switch>
   );

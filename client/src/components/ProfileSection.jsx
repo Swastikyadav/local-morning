@@ -22,7 +22,7 @@ function Profile({style}) {
       <Link to="/"><p><HomeOutlined /> Home</p></Link>
       <Link to="/dashboard/profile/myposts"><p><AlignCenterOutlined /> My Posts</p></Link>
       <Link to="/dashboard/profile/likedposts"><p><LikeOutlined /> Liked Posts</p></Link>
-      <Link to="#"><p><SettingOutlined /> Settings</p></Link>
+      <Link to="/dashboard/settings"><p><SettingOutlined /> Settings</p></Link>
       <Link to="#"><p><LogoutOutlined /> Logout</p></Link>
     </section>
     </aside>

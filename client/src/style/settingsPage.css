@@ -1,0 +1,50 @@
+.settings-page {
+  width: 60rem;
+  background: #fff;
+  border-radius: 8px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.settings-page h4 {
+  font-size: 24px;
+}
+
+.settings-form,
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-form label,
+.change-password-form label {
+  font-size: 16px;
+  margin: 5px;
+}
+
+.settings-form input,
+.settings-form textarea,
+.change-password-form input {
+  padding: 10px;
+  margin: 10px 5px;
+  outline: none;
+}
+
+.settings-form input[type=submit],
+.change-password-form input[type=submit] {
+  background: #156FE5;
+  color: #fff;
+  border: none;
+  width: 150px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Media Query */
+
+@media all and (max-width: 768px) {
+  .settings-page {
+    width: 90%;
+    margin-bottom: 50px;
+  }
+} 

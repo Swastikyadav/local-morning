@@ -16,6 +16,15 @@ a {
   color: #00f;
 }
 
+.input-focus:focus,
+.textarea-focus:focus {
+  border: 1px solid blue;
+}
+
+.box-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+}
+
 /* Media Query */
 
 @media all and (max-width: 768px) {
