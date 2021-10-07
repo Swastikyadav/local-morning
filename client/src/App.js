@@ -14,9 +14,13 @@ function App(props) {
     function updatemobileView(mql) {
       setMobileView(mql.matches);
       if(mobileView) {
-        props.history.push("/dashboard");
+        props.location.pathname === "/dashboard/posts" ?
+        props.history.push("/dashboard") :
+        props.history.push(props.location.pathname);
       } else {
-        props.history.push("/dashboard/posts");
+        props.location.pathname === "/dashboard" ?
+        props.history.push("/dashboard/posts") :
+        props.history.push(props.location.pathname);
       }
     }
 
