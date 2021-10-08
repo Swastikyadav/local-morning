@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { GoogleOutlined, LoadingOutlined } from "@ant-design/icons";
+import { GoogleOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 
 import API from "../utils/API";
 
 import "../style/authForm.css";
-import 'react-toastify/dist/ReactToastify.min.css';
 
 function Register() {
   const history = useHistory();

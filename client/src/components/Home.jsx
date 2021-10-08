@@ -5,7 +5,7 @@ import Login from "./Login";
 
 import "../style/home.css";
 
-function Home() {
+function Home({ updateUser }) {
   return (
     <div className="home">
       <span className="home-text">
@@ -15,7 +15,9 @@ function Home() {
 
       <Switch>
         <Route path="/auth/register" component={Register} />
-        <Route path="/auth/login" component={Login} />
+        <Route path="/auth/login">
+          <Login updateUser={updateUser} />
+        </Route>
         <Route path="/auth">
           <Redirect to="auth/login" />
         </Route>

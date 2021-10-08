@@ -35,7 +35,8 @@ class UserController {
         
         res.status(200).json({
           jwtToken,
-          user
+          user,
+          success: true
         });
       } else {
         next(new Error("Password is incorrect!"));

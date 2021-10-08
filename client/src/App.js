@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import Layout from "./components/Layout";
 import MobileNavigation from "./components/MobileNavigation";
 
+import 'react-toastify/dist/ReactToastify.min.css';
+
 function App(props) {
   const [user, setUser] = useState(null);
   const [mobileView, setMobileView] = useState(window.matchMedia("(max-width: 768px)").matches);
@@ -30,10 +32,16 @@ function App(props) {
     return () => mql.removeListener(updatemobileView);
   }, [mobileView, props]);
 
+  const updateUser = (user) => {
+    setUser(user);
+  }
+
   const publicRoutes = () => {
     return(
       <Switch>
-        <Route path="/auth" component={Home} />
+        <Route path="/auth">
+          <Home updateUser={updateUser} />
+        </Route>
         <Route path="/">
           <Redirect to="/auth" />
         </Route>

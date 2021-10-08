@@ -12,5 +12,15 @@ export default {
       body: JSON.stringify(payload)
     })
       .then(res => res.json())
+  },
+
+  // Login
+  postLogin: (payload) => {
+    return fetch("/api/v1/user/login", {
+      method: "POST",
+      headers,
+      body: JSON.stringify(payload)
+    })
+      .then(res => res.json())
   }
 }
