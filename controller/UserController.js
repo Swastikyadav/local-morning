@@ -118,7 +118,7 @@ class UserController {
     try {
       const { email } = req.user;
       const user = await User.findOne({email});
-      res.status(200).json(user);
+      res.status(200).json({user, success: true});
     } catch (error) {
       next(error);
     }

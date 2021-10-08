@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import API from "./utils/API";
+
+// Public components
 import Home from "./components/Home";
+import Oauth from "./components/Oauth";
+
+// Private components
 import Layout from "./components/Layout";
 import MobileNavigation from "./components/MobileNavigation";
 
@@ -32,8 +38,27 @@ function App(props) {
     return () => mql.removeListener(updatemobileView);
   }, [mobileView, props]);
 
+  useEffect(() => {
+    // Move outside and utilize useCallback
+    API.getCurrentUser(localStorage.token || "")
+      .then(res => {
+        const { user, success } = res;
+
+        if(success) {
+          updateUser(user);
+        }
+      })
+  }, []);
+
   const updateUser = (user) => {
     setUser(user);
+  }
+
+  // Use context api for logOutUser and user
+  const logOutUser = () => {
+    updateUser(null);
+    localStorage.clear();
+    props.history.push("/");
   }
 
   const publicRoutes = () => {
@@ -41,6 +66,9 @@ function App(props) {
       <Switch>
         <Route path="/auth">
           <Home updateUser={updateUser} />
+        </Route>
+        <Route path="/oAuth">
+          <Oauth updateUser={updateUser} />
         </Route>
         <Route path="/">
           <Redirect to="/auth" />
@@ -52,7 +80,9 @@ function App(props) {
   const privateRoutes = () => {
     return(
       <Switch>
-        <Route path="/dashboard" component={Layout} />
+        <Route path="/dashboard">
+          <Layout logOutUser={logOutUser} />
+        </Route>
         <Route path="/">
           {mobileView ? <Redirect to="/dashboard/posts" /> : <Redirect to="/dashboard" />}
         </Route>
@@ -62,7 +92,7 @@ function App(props) {
 
   return (
     <>
-      {user && localStorage.token ? (
+      {user || localStorage.token ? (
         <>
           <MobileNavigation />
           {privateRoutes()}

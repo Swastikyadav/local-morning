@@ -3,7 +3,7 @@ import { AlignCenterOutlined, LikeOutlined, SettingOutlined, LogoutOutlined, Hom
 
 import "../style/profileSection.css";
 
-function Profile({style}) {
+function Profile({style, logOutUser}) {
   return (
     <aside className="profile-section" style={style}>
     <section className="profile-card">
@@ -19,11 +19,11 @@ function Profile({style}) {
 
       <hr />
 
-      <Link to="/"><p><HomeOutlined /> Home</p></Link>
-      <Link to="/dashboard/profile/myposts"><p><AlignCenterOutlined /> My Posts</p></Link>
-      <Link to="/dashboard/profile/likedposts"><p><LikeOutlined /> Liked Posts</p></Link>
-      <Link to="/dashboard/settings"><p><SettingOutlined /> Settings</p></Link>
-      <Link to="#"><p><LogoutOutlined /> Logout</p></Link>
+      <Link className="nav-item" to="/"><p><HomeOutlined /> Home</p></Link>
+      <Link className="nav-item" to="/dashboard/profile/myposts"><p><AlignCenterOutlined /> My Posts</p></Link>
+      <Link className="nav-item" to="/dashboard/profile/likedposts"><p><LikeOutlined /> Liked Posts</p></Link>
+      <Link className="nav-item" to="/dashboard/settings"><p><SettingOutlined /> Settings</p></Link>
+      <p className="nav-item" onClick={logOutUser}><LogoutOutlined /> Logout</p>
     </section>
     </aside>
   );

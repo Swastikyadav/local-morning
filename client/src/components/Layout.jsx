@@ -8,7 +8,7 @@ import UserProfile from "./UserProfile";
 import PostLists from "./PostLists";
 import Settings from "./Settings";
 
-function Layout() {
+function Layout({logOutUser}) {
   return (
     <Switch>
       <Route path="/dashboard/profile/myposts" component={PostLists} />
@@ -18,7 +18,9 @@ function Layout() {
       <Route path="/dashboard/news" component={NewsSection} />
       <Route path="/dashboard/posts" component={PostSection} />
       <Route path="/dashboard/settings" component={Settings} />
-      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/dashboard">
+        <Dashboard logOutUser={logOutUser} />
+      </Route>
     </Switch>
   );
 }

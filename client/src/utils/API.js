@@ -3,7 +3,7 @@ const headers = {
   'Authorization': localStorage.token || ''
 }
 
-export default {
+const API = {
   // Signup
   postSignup: (payload) => {
     return fetch("/api/v1/user/signup", {
@@ -22,5 +22,19 @@ export default {
       body: JSON.stringify(payload)
     })
       .then(res => res.json())
+  },
+
+  // Current User
+  getCurrentUser: (token) => {
+    return fetch("/api/v1/user/profile", {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(res => res.json())
   }
 }
+
+export default API;

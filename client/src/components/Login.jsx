@@ -28,7 +28,7 @@ function Login({ updateUser }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
+    setLoading(true); // Fix - Cannot update state, after component is unmounted
 
     API.postLogin(loginData)
       .then(user => {
@@ -37,7 +37,7 @@ function Login({ updateUser }) {
         if(success) {
           localStorage.setItem("token", jwtToken);
           updateUser(user);
-          notifySuccess("You are logged in successfully");
+          notifySuccess("You logged in successfully");
           history.push("/");
         } else {
           notifyError(message);
@@ -75,11 +75,13 @@ function Login({ updateUser }) {
 
       <hr />
 
-      <Link to="#">
-        <button className="google-auth-btn">
-          <GoogleOutlined className="google-icon" /> Login With Google
-        </button>
-      </Link>
+      <button
+        type="button"
+        className="google-auth-btn"
+        onClick={() => window.location.href="http://localhost:5000/api/v1/oAuth/google"}
+      >
+        <GoogleOutlined className="google-icon" /> Login With Google
+      </button>
     </form>
   );
 }

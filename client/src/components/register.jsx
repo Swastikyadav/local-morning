@@ -82,11 +82,13 @@ function Register() {
 
         <hr />
 
-        <Link to="#">
-          <button className="google-auth-btn">
-            <GoogleOutlined className="google-icon" /> Login With Google
-          </button>
-        </Link>
+        <button
+          type="button"
+          className="google-auth-btn"
+          onClick={() => window.location.href="http://localhost:5000/api/v1/oAuth/google"}
+        >
+          <GoogleOutlined className="google-icon" /> Login With Google
+        </button>
       </form>
     </>
   );
