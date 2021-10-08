@@ -5,7 +5,9 @@ const { body, param } = expressValidator;
 class UserValidators {
   static signUp() {
     return [
-      body("name", "Name is required").isString(),
+      body("name").not()
+        .isEmpty().withMessage("Name is required")
+        .isString(),
       body("email", "Invalid Email").isEmail().custom((email, {req}) => {
         return User.findOne({email})
           .then(user => {

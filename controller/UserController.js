@@ -18,7 +18,7 @@ class UserController {
         html: `<p>Hello ${name}, Please verify your account here: <a href="https://frontend-verification-link.app?user_id=${newUser._id}">Verification Link</a> <small>${newUser._id}</small>`,
       });
 
-      res.status(200).json({newUser, msg: "New user account created"});
+      res.status(200).json({newUser, msg: "New user account created", success: true});
     } catch (err) {
       next(err);
     }

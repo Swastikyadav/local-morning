@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Home from "./components/Home";
 import Layout from "./components/Layout";
@@ -53,12 +54,13 @@ function App(props) {
 
   return (
     <>
-      {!user && !localStorage.token ? (
+      {user && localStorage.token ? (
         <>
           <MobileNavigation />
           {privateRoutes()}
         </>
       ) : publicRoutes()}
+      <ToastContainer />
     </>
   );
 }

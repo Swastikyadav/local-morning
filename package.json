@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js --ignore client"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
