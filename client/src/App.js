@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import UserContext from "./UserContext";
 
 import API from "./utils/API";
 
@@ -81,7 +82,7 @@ function App(props) {
     return(
       <Switch>
         <Route path="/dashboard">
-          <Layout logOutUser={logOutUser} />
+          <Layout />
         </Route>
         <Route path="/">
           {mobileView ? <Redirect to="/dashboard/posts" /> : <Redirect to="/dashboard" />}
@@ -91,7 +92,7 @@ function App(props) {
   };
 
   return (
-    <>
+    <UserContext.Provider value={{user, logOutUser}}>
       {user || localStorage.token ? (
         <>
           <MobileNavigation />
@@ -99,7 +100,7 @@ function App(props) {
         </>
       ) : publicRoutes()}
       <ToastContainer />
-    </>
+    </UserContext.Provider>
   );
 }
 

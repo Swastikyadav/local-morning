@@ -1,9 +1,14 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AlignCenterOutlined, LikeOutlined, SettingOutlined, LogoutOutlined, HomeOutlined } from "@ant-design/icons";
 
+import UserContext from "../UserContext";
+
 import "../style/profileSection.css";
 
-function Profile({style, logOutUser}) {
+function Profile({style}) {
+  const {logOutUser} = useContext(UserContext);
+
   return (
     <aside className="profile-section" style={style}>
     <section className="profile-card">

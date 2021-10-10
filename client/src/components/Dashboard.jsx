@@ -4,10 +4,10 @@ import NewsSection from "./NewsSection";
 
 import "../style/dashboard.css";
 
-function Dashboard({logOutUser}) {
+function Dashboard() {
   return (
     <div className="dashboard">
-      <ProfileSection logOutUser={logOutUser} />
+      <ProfileSection />
 
       <PostSection />
 
