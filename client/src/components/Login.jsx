@@ -41,11 +41,9 @@ function Login({ updateUser }) {
           history.push("/");
         } else {
           notifyError(message);
+          setLoading(false);
         }
       })
-      .finally(() => {
-        setLoading(false);
-      });
   }
 
   return (

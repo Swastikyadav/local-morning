@@ -41,10 +41,8 @@ function Register() {
           history.push("/auth/login");
         } else {
           notifyError(message);
+          setLoading(false);
         }
-      })
-      .finally(() => {
-        setLoading(false);
       })
   }
 
