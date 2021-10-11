@@ -18,6 +18,11 @@ const userSchema = new Schema({
     required: true,
   },
 
+  bio: {
+    type: String,
+    default: "",
+  },
+
   password: {
     type: String,
     required: true,

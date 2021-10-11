@@ -88,7 +88,12 @@ class UserRouter {
       "/update/:id",
       GlobalMiddleWares.isLoggedIn,
       GlobalMiddleWares.isAuthorized,
+      
       Multer.upload().fields([{name: "avatar", maxCount: 1}, {name: "name", maxCount: 1}]),
+      
+      UserValidators.updateUserProfile(),
+      GlobalMiddleWares.checkError,
+      
       updateProfile,
     );
   }

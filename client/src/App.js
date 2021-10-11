@@ -92,7 +92,7 @@ function App(props) {
   };
 
   return (
-    <UserContext.Provider value={{user, logOutUser}}>
+    <UserContext.Provider value={{user, updateUser, logOutUser}}>
       {user || localStorage.token ? (
         <>
           <MobileNavigation />

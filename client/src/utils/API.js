@@ -52,6 +52,18 @@ const API = {
       headers
     })
       .then(res => res.json())
+  },
+
+  // Update current user profile
+  patchUserProfile: (userId, payload) => {
+    return fetch(`/api/v1/user/update/${userId}`, {
+      method: "PATCH",
+      headers: {
+        'Authorization': `Bearer ${localStorage.token}`
+      },
+      body: payload
+    })
+      .then(res => res.json())
   }
 }
 

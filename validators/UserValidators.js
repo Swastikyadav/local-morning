@@ -1,6 +1,6 @@
 const expressValidator = require("express-validator");
 const User = require("../models/userModel");
-const { body, param } = expressValidator;
+const { body, param, check } = expressValidator;
 
 class UserValidators {
   static signUp() {
@@ -112,6 +112,15 @@ class UserValidators {
             return true;
           })
       }),
+    ];
+  }
+
+  static updateUserProfile() {
+    return [
+      body("name").not()
+        .isEmpty().withMessage("Name is required"),
+      body("bio").not()
+        .isEmpty().withMessage("Bio is required")
     ];
   }
 }

@@ -1,28 +1,15 @@
 import { Link } from "react-router-dom";
-import { Input } from "antd";
+
+import ProfileSettings from "./ProfileSettings";
 
 import "../style/settingsPage.css";
-
-const { TextArea } = Input;
 
 function Settings() {
   return (
     <div className="settings-page box-shadow">
       <Link to="/"><p>{`<<< Go back to home`}</p></Link>
 
-      <h4>Update Profile</h4>
-      <form className="settings-form">
-        <label htmlFor="username">UserName: </label>
-        <input id="username" className="input-focus" type="text" placeholder="UserName" autoFocus />
-
-        <label htmlFor="bio">Bio: </label>
-        <TextArea id="bio" className="textarea-focus" placeholder="Tell us about yourself ..." autoSize />
-
-        <label htmlFor="profile-pic">Select Profile Picture: </label>
-        <input id="profile-pic" className="input-focus" type="file" />
-
-        <input type="submit" value="Update Profile" />
-      </form>
+      <ProfileSettings />
 
       <h4>Update Password</h4>
 
