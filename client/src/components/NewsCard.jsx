@@ -1,10 +1,10 @@
 import "../style/newsCard.css";
 
-function NewsCard() {
+function NewsCard({publishedAt, title, url}) {
   return (
     <article className="news-card">
       <small>Technology . 1 hour ago</small>
-      <p>Facebook says its global outage was caused by configuration changes to routers</p>
+      <a href={url} target="_blank" rel="noreferrer"><p>{title}</p></a>
       <hr />
     </article>
   );

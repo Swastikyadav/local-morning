@@ -1,7 +1,7 @@
 const express = require("express");
 const { Router } = express;
 const GloblMiddleWares = require("../../../middlewares/GlobalmiddleWare");
-const { getNews } = require("../../../controller/NewsController");
+const { getNews, getTopHeadlines } = require("../../../controller/NewsController");
 
 class NewsRouter {
   constructor() {
@@ -14,6 +14,12 @@ class NewsRouter {
       "/",
       GloblMiddleWares.isLoggedIn,
       getNews
+    );
+
+    this.router.get(
+      "/topheadlines",
+      GloblMiddleWares.isLoggedIn,
+      getTopHeadlines
     );
   }
 }

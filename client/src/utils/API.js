@@ -1,6 +1,6 @@
 const headers = {
   'Content-Type': 'application/json',
-  'Authorization': localStorage.token || ''
+  'Authorization': `Bearer ${localStorage.token}` || ''
 }
 
 const API = {
@@ -32,6 +32,24 @@ const API = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       }
+    })
+      .then(res => res.json())
+  },
+
+  // Get News by query
+  getNews: (query) => {
+    return fetch(`/api/v1/news?q=${query}`, {
+      method: "GET",
+      headers
+    })
+      .then(res => res.json())
+  },
+
+  // Get Top Headlines
+  getTopHeadlines: () => {
+    return fetch("/api/v1/news/topheadlines", {
+      method: "GET",
+      headers
     })
       .then(res => res.json())
   }

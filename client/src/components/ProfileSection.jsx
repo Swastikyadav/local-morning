@@ -11,7 +11,6 @@ function Profile({style}) {
 
   return (
     <aside className="profile-section" style={style}>
-      {console.log(user)}
     <section className="profile-card">
       <div className="profile-cover-image"></div>
       <img src={user.avatar} className="profile-pic" alt="profile-pic"/>

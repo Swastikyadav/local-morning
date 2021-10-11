@@ -6,8 +6,19 @@ class NewsController {
       const { q } = req.query;
 
       NewsApi.fetchNews(q)
-        .then(response => res.status(200).json(response));
+        .then(response => res.status(200).json(response))
+        .catch(err => next(err));
       
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getTopHeadlines(req, res, next) {
+    try {
+      NewsApi.fetchTopHeadlines()
+        .then(response => res.status(200).json(response))
+        .catch(err => next(err));
     } catch (error) {
       next(error);
     }
