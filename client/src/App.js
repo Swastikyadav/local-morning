@@ -96,7 +96,7 @@ function App(props) {
       {user || localStorage.token ? (
         <>
           <MobileNavigation />
-          {privateRoutes()}
+          {user && privateRoutes()}
         </>
       ) : publicRoutes()}
       <ToastContainer />

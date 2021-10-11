@@ -1,14 +1,19 @@
+import { useContext } from "react";
 import { PictureOutlined } from "@ant-design/icons";
 import { Input } from "antd";
+
+import UserContext from "../UserContext";
 
 import "../style/postForm.css";
 
 const { TextArea } = Input;
 
 function PostForm() {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="post-form">
-      <img src="https://pbs.twimg.com/profile_images/1411339822942220294/cB2H_0Rm_400x400.jpg" className="profile-pic" alt="profile-pic"/>
+      <img src={user.avatar} className="profile-pic" alt="profile-pic"/>
       <div className="textarea-container">
         <TextArea placeholder="Share your thoughts..." autoSize />
         <p className="post-action-options">
