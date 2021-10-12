@@ -1,14 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import API from "../utils/API";
+import UserContext from "../UserContext";
 
 import "../style/oAuthLoader.css";
 
-function Oauth({ updateUser }) {
+function Oauth() {
   const location = useLocation();
   const history = useHistory();
+  const { updateUser } = useContext(UserContext);
 
   const notifyError = (message) => toast.error(message);
   const notifySuccess = (message) => toast.success(message);

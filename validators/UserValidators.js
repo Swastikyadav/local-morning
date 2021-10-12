@@ -123,6 +123,40 @@ class UserValidators {
         .isEmpty().withMessage("Bio is required")
     ];
   }
+
+  static updatePassword() {
+    return [
+      body("newPassword").not()
+        .isEmpty().withMessage("Password is required")
+        .isAlphanumeric().withMessage("Only AlphaNumeric characters are allowed")
+        .isLength({min: 6, max: 18}).withMessage("Password must to 6-18 characters"),
+      body("confirmNewPassword").not()
+        .isEmpty().withMessage("Password confirmation is required")
+        .isAlphanumeric().withMessage("Only AlphaNumeric characters are allowed")
+        .isLength({min: 6, max: 18}).withMessage("Password must to 6-18 characters")
+        .custom((confirmNewPassword, { req }) => {
+          if(confirmNewPassword === req.body.newPassword) {
+            return true;
+          } else {
+            req.errorStatus = 422;
+            throw new Error("Password and Confirm password does not match");
+          }
+        }),
+      body("currentPassword").not()
+        .isEmpty().withMessage("Current password is required for authorization")
+        .isAlphanumeric().withMessage("Only AlphaNumeric characters are allowed")
+        .isLength({min: 6, max: 18}).withMessage("Password must to 6-18 characters")
+        .custom(async (currentPassword, { req }) => {
+          const user = await User.findById(req.user.user_id);
+          if(user.validatePassword(currentPassword)) {
+            return true;
+          } else {
+            req.errorStatus = 422;
+            throw new Error("Invalid current password");
+          }
+        })
+    ];
+  }
 }
 
 module.exports = UserValidators;

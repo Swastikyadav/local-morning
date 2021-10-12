@@ -9,6 +9,7 @@ const {
   currentUserProfile,
   userProfile,
   deleteUser,
+  updatePassword,
 } = require("../../../controller/UserController");
 const GlobalMiddleWares = require("../../../middlewares/GlobalmiddleWare");
 const UserValidators = require("../../../validators/UserValidators");
@@ -81,6 +82,14 @@ class UserRouter {
       UserValidators.resetPassword(),
       GlobalMiddleWares.checkError,
       resetPassword
+    );
+
+    this.router.patch(
+      "/update/password",
+      GlobalMiddleWares.isLoggedIn,
+      UserValidators.updatePassword(),
+      GlobalMiddleWares.checkError,
+      updatePassword
     );
 
     // Authenticated and Authorized route

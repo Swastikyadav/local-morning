@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { GoogleOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 
-import "../style/authForm.css";
 import API from "../utils/API";
+import UserContext from "../UserContext";
 
-function Login({ updateUser }) {
+import "../style/authForm.css";
+
+function Login() {
   const history = useHistory();
+  const { updateUser } = useContext(UserContext);
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -28,11 +31,11 @@ function Login({ updateUser }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true); // Fix - Cannot update state, after component is unmounted
+    setLoading(true);
 
     API.postLogin(loginData)
-      .then(user => {
-        const { jwtToken, message, success } = user;
+      .then(loggedInUser => {
+        const { jwtToken, message, success, user } = loggedInUser;
 
         if(success) {
           localStorage.setItem("token", jwtToken);

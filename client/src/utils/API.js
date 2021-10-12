@@ -1,14 +1,12 @@
-const headers = {
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${localStorage.token}` || ''
-}
-
 const API = {
   // Signup
   postSignup: (payload) => {
     return fetch("/api/v1/user/signup", {
       method: "POST",
-      headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      },
       body: JSON.stringify(payload)
     })
       .then(res => res.json())
@@ -18,19 +16,22 @@ const API = {
   postLogin: (payload) => {
     return fetch("/api/v1/user/login", {
       method: "POST",
-      headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      },
       body: JSON.stringify(payload)
     })
       .then(res => res.json())
   },
 
   // Current User
-  getCurrentUser: (token) => {
+  getCurrentUser: () => {
     return fetch("/api/v1/user/profile", {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
       }
     })
       .then(res => res.json())
@@ -40,7 +41,10 @@ const API = {
   getNews: (query) => {
     return fetch(`/api/v1/news?q=${query}`, {
       method: "GET",
-      headers
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      }
     })
       .then(res => res.json())
   },
@@ -49,7 +53,10 @@ const API = {
   getTopHeadlines: () => {
     return fetch("/api/v1/news/topheadlines", {
       method: "GET",
-      headers
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      }
     })
       .then(res => res.json())
   },
@@ -62,6 +69,19 @@ const API = {
         'Authorization': `Bearer ${localStorage.token}`
       },
       body: payload
+    })
+      .then(res => res.json())
+  },
+
+  // Update Password
+  patchUpdatePassword: (payload) => {
+    return fetch("/api/v1/user/update/password", {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      },
+      body: JSON.stringify(payload)
     })
       .then(res => res.json())
   }

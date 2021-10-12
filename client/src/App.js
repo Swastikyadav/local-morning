@@ -41,7 +41,7 @@ function App(props) {
 
   useEffect(() => {
     // Move outside and utilize useCallback
-    API.getCurrentUser(localStorage.token || "")
+    localStorage.token && API.getCurrentUser()
       .then(res => {
         const { user, success } = res;
 
@@ -65,12 +65,8 @@ function App(props) {
   const publicRoutes = () => {
     return(
       <Switch>
-        <Route path="/auth">
-          <Home updateUser={updateUser} />
-        </Route>
-        <Route path="/oAuth">
-          <Oauth updateUser={updateUser} />
-        </Route>
+        <Route path="/auth" component={Home} />
+        <Route path="/oAuth" component={Oauth} />
         <Route path="/">
           <Redirect to="/auth" />
         </Route>

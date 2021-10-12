@@ -107,6 +107,20 @@ class UserController {
     }
   }
 
+  static async updatePassword(req, res, next) {
+    try {
+      const { newPassword } = req.body;
+      const { user_id } = req.user;
+
+      const updatedUser = await User.findByIdAndUpdate(user_id, {password: newPassword}, {new: true});
+      await updatedUser.save();
+
+      res.status(200).json({updatedUser, success: true});
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async currentUserProfile(req, res, next) {
     try {
       const { email } = req.user;

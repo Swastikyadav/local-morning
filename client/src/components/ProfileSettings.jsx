@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Input } from "antd";
@@ -12,29 +12,14 @@ function ProfileSettings() {
   const history = useHistory();
   const {user, updateUser} = useContext(UserContext);
   const [userProfile, setUserProfile] = useState({
-    name: "",
-    bio: "",
+    name: user.name,
+    bio: user.bio,
     avatar: null
   });
   const [loading, setLoading] = useState(false);
 
   const notifyError = (message) => toast.error(message);
   const notifySuccess = (message) => toast.success(message);
-
-  useEffect(() => {
-    API.getCurrentUser(localStorage.token || "")
-      .then(res => {
-        const { user, success } = res;
-
-        if(success) {
-          setUserProfile({
-            name: user.name,
-            bio: user.bio,
-            avatar: null
-          });
-        }
-      })
-  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

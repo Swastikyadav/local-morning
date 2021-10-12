@@ -15,9 +15,7 @@ function Home({ updateUser }) {
 
       <Switch>
         <Route path="/auth/register" component={Register} />
-        <Route path="/auth/login">
-          <Login updateUser={updateUser} />
-        </Route>
+        <Route path="/auth/login" component={Login} />
         <Route path="/auth">
           <Redirect to="auth/login" />
         </Route>
