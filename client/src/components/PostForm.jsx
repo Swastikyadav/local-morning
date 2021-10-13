@@ -49,6 +49,10 @@ function PostForm() {
         if(success) {
           setLoading(false);
           notifySuccess("Post created successfully");
+          setPost({
+            content: "",
+            image: null
+          });
           // refresh post section with newly created post.
         } else {
           setLoading(false);
