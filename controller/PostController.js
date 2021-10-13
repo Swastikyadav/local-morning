@@ -8,10 +8,11 @@ class PostController {
       req.body.authorId = req.user.user_id;
       const { content, authorId, tags } = req.body;
       const { image } = req.files;
+      console.log(image);
       
       const newPost = await Post.create({
         content,
-        image: `http://localhost:5000/${image[0].path}`,
+        image: image ? `http://localhost:5000/${image[0].path}` : "",
         authorId
       });
       const tagsArray = tags && tags.split(",");
@@ -29,7 +30,7 @@ class PostController {
 
       await User.findByIdAndUpdate(newPost.authorId, {$push: { postsId: newPost._id }});
       
-      res.status(200).json({newPost});
+      res.status(200).json({newPost, success: true});
     } catch (error) {
       next(error);
     }

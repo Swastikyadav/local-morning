@@ -84,7 +84,19 @@ const API = {
       body: JSON.stringify(payload)
     })
       .then(res => res.json())
-  }
+  },
+
+  // Create new post
+  postCreatePost: (payload) => {
+    return fetch(`/api/v1/post/create`, {
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${localStorage.token}`
+      },
+      body: payload
+    })
+      .then(res => res.json())
+  },
 }
 
 export default API;
