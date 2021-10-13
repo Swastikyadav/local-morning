@@ -7,8 +7,13 @@ class PostController {
     try {
       req.body.authorId = req.user.user_id;
       const { content, authorId, tags } = req.body;
+      const { image } = req.files;
       
-      const newPost = await Post.create({content, authorId});
+      const newPost = await Post.create({
+        content,
+        image: `http://localhost:5000/${image[0].path}`,
+        authorId
+      });
       const tagsArray = tags && tags.split(",");
       tags && tagsArray.forEach(async tag => {
         const foundTag = await Tag.findOne({name: tag});

@@ -10,9 +10,10 @@ const postSchema = new Schema({
     maxlength: 280,
   },
 
-  // image: {
-  //   type: String,
-  // },
+  image: {
+    type: String,
+    default: ""
+  },
 
   authorId: {
     type: Schema.Types.ObjectId,

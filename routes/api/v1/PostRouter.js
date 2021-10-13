@@ -3,6 +3,7 @@ const PostValidators = require("../../../validators/PostValidators");
 const GlobalMiddleWares = require("../../../middlewares/GlobalmiddleWare");
 const PostMiddleWares = require("../../../middlewares/PostmiddleWare");
 const { createPost, deletePost, likePost } = require("../../../controller/PostController");
+const Multer = require("../../../utils/Multer");
 
 const { Router } = express;
 
@@ -18,6 +19,9 @@ class PostRouter {
     this.router.post(
       "/create",
       GlobalMiddleWares.isLoggedIn,
+
+      Multer.upload().fields([{name: "image", maxCount: 1}, {name: "name", maxCount: 1}]),
+
       PostValidators.create(),
       GlobalMiddleWares.checkError,
       createPost,
