@@ -124,7 +124,7 @@ class UserController {
   static async currentUserProfile(req, res, next) {
     try {
       const { email } = req.user;
-      const user = await User.findOne({email});
+      const user = await User.findOne({email}).populate("postsId");
       res.status(200).json({user, success: true});
     } catch (error) {
       next(error);

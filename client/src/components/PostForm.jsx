@@ -10,8 +10,8 @@ import "../style/postForm.css";
 
 const { TextArea } = Input;
 
-function PostForm() {
-  const { user } = useContext(UserContext);
+function PostForm({fetchPosts}) {
+  const { user, updateUser } = useContext(UserContext);
   const [post, setPost] = useState({
     content: "",
     image: null
@@ -44,7 +44,7 @@ function PostForm() {
 
     API.postCreatePost(formData)
       .then(res => {
-        const { newPost, success, message } = res;
+        const {updatedUser, success, message } = res;
         
         if(success) {
           setLoading(false);
@@ -53,7 +53,9 @@ function PostForm() {
             content: "",
             image: null
           });
-          // refresh post section with newly created post.
+          
+          fetchPosts();
+          updateUser(updatedUser);
         } else {
           setLoading(false);
           notifyError(message);

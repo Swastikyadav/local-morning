@@ -31,3 +31,10 @@
   color: #00f;
   cursor: pointer;
 }
+
+.post-card .delete-btn {
+  font-size: 18px;
+  color: #f00;
+  cursor: pointer;
+  margin-left: 10px;
+}

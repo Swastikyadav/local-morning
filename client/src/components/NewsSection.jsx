@@ -21,6 +21,8 @@ function NewsSection() {
           setNews(res.articles);
         })
     }
+
+    return () => {setNews([])}
   }, [query]);
 
   const handleSearch = (event) => {

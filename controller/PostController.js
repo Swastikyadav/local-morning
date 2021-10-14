@@ -8,7 +8,6 @@ class PostController {
       req.body.authorId = req.user.user_id;
       const { content, authorId, tags } = req.body;
       const { image } = req.files;
-      console.log(image);
       
       const newPost = await Post.create({
         content,
@@ -28,9 +27,9 @@ class PostController {
         }
       });
 
-      await User.findByIdAndUpdate(newPost.authorId, {$push: { postsId: newPost._id }});
+      const updatedUser = await User.findByIdAndUpdate(newPost.authorId, {$push: { postsId: newPost._id }}, {new: true}).populate("postsId");
       
-      res.status(200).json({newPost, success: true});
+      res.status(200).json({newPost, updatedUser, success: true});
     } catch (error) {
       next(error);
     }
@@ -39,11 +38,14 @@ class PostController {
   static async deletePost(req, res, next) {
     try {
       const { postId } = req.params;
+      const { user_id } = req.user;
       
       const postDoc = await Post.findByIdAndRemove(postId);
+      const updatedUser = await User.findByIdAndUpdate(user_id, {$pull: { postsId: postDoc._id }}).populate("postsId");
+
       await postDoc.remove();
       
-      res.status(200).json({msg: "Post deletion successful"});
+      res.status(200).json({updatedUser, message: "Post deletion successful", success: true});
     } catch (error) {
       next(error);
     }
@@ -64,6 +66,17 @@ class PostController {
       }
 
       res.status(200).json(post);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async allPosts(req, res, next) {
+    try {
+      Post.find({}).populate({path: "authorId"}).exec((err, posts) => {
+        if(err) {next(err)};
+        res.status(200).json({posts, success: true});
+      });
     } catch (error) {
       next(error);
     }

@@ -1,30 +1,55 @@
-import { LikeOutlined } from "@ant-design/icons";
+import { useContext } from "react";
+import { LikeOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import UserContext from "../UserContext";
+import API from "../utils/API";
 
 import "../style/postCard.css";
 
-function PostCard() {
+function PostCard({ postId, content, image, likesArray, author, fetchPosts }) {
+  const { user, updateUser } = useContext(UserContext);
+
+  const notifyError = (message) => toast.error(message);
+  const notifySuccess = (message) => toast.success(message);
+
+  const handleDeletePost = (postId) => {
+    API.deletePost(postId)
+      .then(res => {
+        const { updatedUser, message, success } = res;
+        if(success) {
+          notifySuccess(message);
+          updateUser(updatedUser);
+          fetchPosts(updatedUser.postsId);
+        } else {
+          notifyError("Cannot delete post");
+        }
+      })
+  }
+
   return (
     <article className="post-card">
       <Link to="/dashboard/profile/789456">
         <div className="post-details-container">
-          <img src="https://pbs.twimg.com/profile_images/1387758016716578821/Srn36e3M_400x400.png" className="profile-pic" alt="profile-pic"/>
+          <img src={author.avatar} className="profile-pic" alt="profile-pic"/>
           <div className="post-detail-text">
-            <h2>Kyle PrinsLoo</h2>
+            <h2>{author.name}</h2>
             <small>4 Hours ago</small>
           </div>
         </div>
       </Link>
 
       <p className="post-content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum doloribus iure, delectus expedita rerum commodi ullam voluptatum qui possimus officia atque iste laudantium ipsum at ut tempore magnam aspernatur nostrum.
+        {content}
 
         <br/><br/>
 
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlrZqTCInyg6RfYC7Ape20o-EWP1EN_A8fOA&usqp=CAU" alt="doggy" width="100%" height="250"/>
+        {image && <img src={image} alt="doggy" width="100%" height="250"/>}
       </p>
 
-      <button className="like-btn"><LikeOutlined /> 111</button>
+      <button className="like-btn"><LikeOutlined /> {likesArray && likesArray.length}</button>
+      {(user._id === author._id) && <button className="delete-btn" onClick={() => handleDeletePost(postId)}><DeleteOutlined /></button>}
     </article>
   );
 }

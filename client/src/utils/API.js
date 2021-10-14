@@ -97,6 +97,30 @@ const API = {
     })
       .then(res => res.json())
   },
+
+  // Get all posts
+  getPosts: () => {
+    return fetch("/api/v1/post/all", {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      }
+    })
+      .then(res => res.json())
+  },
+
+  // Delete Post
+  deletePost: (postId) => {
+    return fetch(`/api/v1/post/delete/${postId}`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      }
+    })
+      .then(res => res.json())
+  }
 }
 
 export default API;

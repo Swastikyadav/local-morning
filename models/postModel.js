@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema, model, Document } = mongoose;
 
 const Tag = require("../models/tagModel");
+// const User = require("../models/userModel");
 
 const postSchema = new Schema({
   content: {
