@@ -124,7 +124,17 @@ class UserController {
   static async currentUserProfile(req, res, next) {
     try {
       const { email } = req.user;
-      const user = await User.findOne({email}).populate("postsId");
+      const user = await User.findOne({email}).populate({
+        path: "postsId",
+        populate: {
+          path: "authorId"
+        }
+      }).populate({
+        path: "likedPosts",
+        populate: {
+          path: "authorId"
+        }
+      });
       res.status(200).json({user, success: true});
     } catch (error) {
       next(error);

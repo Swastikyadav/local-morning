@@ -50,6 +50,11 @@ const userSchema = new Schema({
   postsId: [{
     type: Schema.Types.ObjectId,
     ref: "Post"
+  }],
+
+  likedPosts: [{
+    type: Schema.Types.ObjectId,
+    ref: "Post"
   }]
 }, {timestamps: true});
 

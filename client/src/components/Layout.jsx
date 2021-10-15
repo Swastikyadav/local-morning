@@ -11,8 +11,12 @@ import Settings from "./Settings";
 function Layout() {
   return (
     <Switch>
-      <Route path="/dashboard/profile/myposts" component={PostLists} />
-      <Route path="/dashboard/profile/likedposts" component={PostLists} />
+      <Route path="/dashboard/profile/myposts">
+        <PostLists postType="myPosts" />
+      </Route>
+      <Route path="/dashboard/profile/likedposts">
+        <PostLists postType="likedPosts" />
+      </Route>
       <Route path="/dashboard/profile/:id" component={UserProfile} />
       <Route path="/dashboard/profile" component={ProfileSection} />
       <Route path="/dashboard/news" component={NewsSection} />

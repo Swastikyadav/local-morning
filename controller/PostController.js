@@ -41,7 +41,15 @@ class PostController {
       const { user_id } = req.user;
       
       const postDoc = await Post.findByIdAndRemove(postId);
-      const updatedUser = await User.findByIdAndUpdate(user_id, {$pull: { postsId: postDoc._id }}).populate("postsId");
+      const updatedUser = await User.findByIdAndUpdate(user_id, {$pull: { postsId: postDoc._id }})
+      .populate({
+        path: "postsId",
+        populate: { path: "authorId" }
+      })
+      .populate({
+        path: "likedPosts",
+        populate: { path: "authorId" }
+      });
 
       await postDoc.remove();
       
@@ -59,13 +67,33 @@ class PostController {
       const post = await Post.findById(postId);
       const alreadyLiked = post.likes.includes(user_id);
 
+      let updatedUser = {}
+      let updatedPost = {}
       if(!alreadyLiked) {
-        await Post.findByIdAndUpdate(postId, {$push: { likes: user_id }});
+        updatedPost = await Post.findByIdAndUpdate(postId, {$push: { likes: user_id }}, {new: true});
+        updatedUser = await User.findByIdAndUpdate(user_id, {$push: { likedPosts: post._id }}, {new: true})
+        .populate({
+          path: "postsId",
+          populate: { path: "authorId" }
+        })
+        .populate({
+          path: "likedPosts",
+          populate: { path: "authorId" }
+        });
       } else {
-        await Post.findByIdAndUpdate(postId, {$pull: { likes: user_id }});
+        updatedPost = await Post.findByIdAndUpdate(postId, {$pull: { likes: user_id }}, {new: true});
+        updatedUser = await User.findByIdAndUpdate(user_id, {$pull: { likedPosts: post._id }}, {new: true})
+        .populate({
+          path: "postsId",
+          populate: { path: "authorId" }
+        })
+        .populate({
+          path: "likedPosts",
+          populate: { path: "authorId" }
+        });
       }
 
-      res.status(200).json(post);
+      res.status(200).json({updatedPost, updatedUser, success: true});
     } catch (error) {
       next(error);
     }
@@ -73,7 +101,7 @@ class PostController {
 
   static async allPosts(req, res, next) {
     try {
-      Post.find({}).populate({path: "authorId"}).exec((err, posts) => {
+      Post.find({}).sort("-createdAt").populate({path: "authorId"}).exec((err, posts) => {
         if(err) {next(err)};
         res.status(200).json({posts, success: true});
       });

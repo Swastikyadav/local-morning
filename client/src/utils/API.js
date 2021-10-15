@@ -120,6 +120,18 @@ const API = {
       }
     })
       .then(res => res.json())
+  },
+
+  // Like post
+  patchLikePost: (postId) => {
+    return fetch(`/api/v1/post/like/${postId}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      }
+    })
+      .then(res => res.json())
   }
 }
 

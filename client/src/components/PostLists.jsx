@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import PostCard from "./PostCard";
@@ -6,9 +6,13 @@ import UserContext from "../UserContext";
 
 import "../style/postLists.css";
 
-function PostLists() {
+function PostLists({ postType }) {
   const { user } = useContext(UserContext);
-  const [postsArray, setPostsArray] = useState(user.postsId);
+  const [postsArray, setPostsArray] = useState([]);
+
+  useEffect(() => {
+    fetchPostsArray(postType === "myPosts" ? user.postsId : user.likedPosts);
+  }, [postType, user]);
 
   const fetchPostsArray = (userPostsArray) => {
     setPostsArray(userPostsArray);
@@ -17,11 +21,11 @@ function PostLists() {
   return (
     <div className="post-lists">
       <Link to="/">{`<<< Back To Home`}</Link>
-      <h4>My Posts / Liked Posts</h4>
+      <h4>{postType}</h4>
       <div className="post-cards">
       {
-        postsArray.length ? postsArray.reverse().map(post => {
-          return <PostCard key={post._id} postId={post._id} content={post.content} image={post.image} likesArray={post.likes} author={user} fetchPosts={fetchPostsArray} />
+        postsArray.length ? postsArray.map(post => {
+          return <PostCard key={post._id} postId={post._id} postType={postType} content={post.content} image={post.image} likesArray={post.likes} author={post.authorId} fetchPosts={fetchPostsArray} />
         }) : <p>Nothing to show here...</p>
       }
       </div>

@@ -27,7 +27,7 @@ function PostSection() {
       <PostForm fetchPosts={fetchPosts} />
       
       {
-        postsArray.length ? postsArray.reverse().map(post => {
+        postsArray.length ? postsArray.map(post => {
           return <PostCard key={post._id} postId={post._id} content={post.content} image={post.image} likesArray={post.likes} author={post.authorId} fetchPosts={fetchPosts} />
         }) : <p>Nothing to show here...</p>
       }

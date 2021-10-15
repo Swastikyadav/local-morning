@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { LikeOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,8 +8,15 @@ import API from "../utils/API";
 
 import "../style/postCard.css";
 
-function PostCard({ postId, content, image, likesArray, author, fetchPosts }) {
+function PostCard({ postId, postType, content, image, likesArray, author, fetchPosts }) {
   const { user, updateUser } = useContext(UserContext);
+  const [likes, setLikes] = useState(0);
+
+  useEffect(() => {
+    setLikes(likesArray && likesArray.length);
+
+    return () => setLikes(0);
+  }, [likesArray]);
 
   const notifyError = (message) => toast.error(message);
   const notifySuccess = (message) => toast.success(message);
@@ -21,9 +28,23 @@ function PostCard({ postId, content, image, likesArray, author, fetchPosts }) {
         if(success) {
           notifySuccess(message);
           updateUser(updatedUser);
-          fetchPosts(updatedUser.postsId);
+          fetchPosts(postType && postType === "myPosts" ? updatedUser.postsId : updatedUser.likedPosts);
         } else {
           notifyError("Cannot delete post");
+        }
+      })
+  }
+
+  const handleLikePost = (postId) => {
+    API.patchLikePost(postId)
+      .then(res => {
+        const { updatedUser, updatedPost, success } = res;
+
+        if(success) {
+          updateUser(updatedUser);
+          setLikes(updatedPost.likes.length);
+        } else {
+          notifyError("Cannot like post");
         }
       })
   }
@@ -48,7 +69,7 @@ function PostCard({ postId, content, image, likesArray, author, fetchPosts }) {
         {image && <img src={image} alt="doggy" width="100%" height="250"/>}
       </p>
 
-      <button className="like-btn"><LikeOutlined /> {likesArray && likesArray.length}</button>
+      <button className="like-btn" onClick={() => handleLikePost(postId)}><LikeOutlined /> {likes}</button>
       {(user._id === author._id) && <button className="delete-btn" onClick={() => handleDeletePost(postId)}><DeleteOutlined /></button>}
     </article>
   );
