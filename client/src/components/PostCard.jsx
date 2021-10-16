@@ -51,7 +51,7 @@ function PostCard({ postId, postType, content, image, likesArray, author, fetchP
 
   return (
     <article className="post-card">
-      <Link to="/dashboard/profile/789456">
+      <Link to={`/dashboard/profile/${author._id}`}>
         <div className="post-details-container">
           <img src={author.avatar} className="profile-pic" alt="profile-pic"/>
           <div className="post-detail-text">

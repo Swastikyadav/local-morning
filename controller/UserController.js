@@ -144,9 +144,9 @@ class UserController {
   static async userProfile(req, res, next) {
     try {
       const { id } = req.params;
-      const user = await User.findById(id);
+      const user = await User.findById(id).populate("postsId");
 
-      res.status(200).json(user);
+      res.status(200).json({user, success: true});
     } catch (error) {
       next(error);
     }

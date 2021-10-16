@@ -132,6 +132,18 @@ const API = {
       }
     })
       .then(res => res.json())
+  },
+
+  // Get user profile from id
+  getUserProfile: (userId) => {
+    return fetch(`/api/v1/user/profile/${userId}`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      }
+    })
+      .then(res => res.json())
   }
 }
 
