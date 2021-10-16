@@ -40,14 +40,6 @@ class UserRouter {
       GlobalMiddleWares.checkError,
       userProfile
     );
-
-    this.router.get(
-      "/forgotpassword",
-      GlobalMiddleWares.isNotLoggedIn,
-      UserValidators.forgotPassword(),
-      GlobalMiddleWares.checkError,
-      forgotPassword
-    );
   }
 
   postRoutes() {
@@ -65,6 +57,14 @@ class UserRouter {
       UserValidators.login(),
       GlobalMiddleWares.checkError,
       login
+    );
+
+    this.router.post(
+      "/forgotpassword",
+      GlobalMiddleWares.isNotLoggedIn,
+      UserValidators.forgotPassword(),
+      GlobalMiddleWares.checkError,
+      forgotPassword
     );
   }
 

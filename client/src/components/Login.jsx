@@ -70,7 +70,7 @@ function Login() {
       <input className="submit-btn" type="submit" value={loading ? "Loading..." : "Log In"} />
 
       <span className="links">
-        <Link to="#">Forgotten Password?</Link>
+        <Link to="/findAccount">Forgotten Password?</Link>
         <Link to="/auth/register">Create New Account!</Link>
       </span>
 

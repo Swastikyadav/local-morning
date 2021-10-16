@@ -9,6 +9,8 @@ function PostSection() {
 
   useEffect(() => {
     fetchPosts();
+
+    return () => setPostsArray([]);
   }, []);
 
   const fetchPosts = () => {

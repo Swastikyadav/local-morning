@@ -67,10 +67,10 @@ class UserController {
       await NodeMailer.sendEmail({
         to: [email],
         subject: "Password Reset Link",
-        html: `<p>Hello ${user.name}, Here is your password reset link: <a href="https://frontend-password-reset-link.app?user_id=${user._id}">Reset Your Password</a> <small>${user._id}</small>`,
+        html: `<p>Hello ${user.name}, Here is your password reset link: <a href="http://localhost:3000/resetPassword/${user._id}">Reset Your Password</a> <small>${user._id}</small>`,
       });
 
-      res.status(200).json({msg: "Password reset link sent to email"});
+      res.status(200).json({message: "Password reset link sent to email", success: true});
     } catch (error) {
       next(error);
     }
@@ -84,7 +84,7 @@ class UserController {
       const updatedUser = await User.findByIdAndUpdate(id, {password: newPassword}, {new: true});
       await updatedUser.save();
 
-      res.status(200).json({updatedUser, msg: "Password updated successful"});
+      res.status(200).json({updatedUser, message: "Password updated successful", success: true});
     } catch (error) {
       next(error);
     }

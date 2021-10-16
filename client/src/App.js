@@ -8,6 +8,8 @@ import API from "./utils/API";
 // Public components
 import Home from "./components/Home";
 import Oauth from "./components/Oauth";
+import FindAccount from "./components/FindAccount";
+import ResetPassword from "./components/ResetPassword";
 
 // Private components
 import Layout from "./components/Layout";
@@ -67,6 +69,8 @@ function App(props) {
       <Switch>
         <Route path="/auth" component={Home} />
         <Route path="/oAuth" component={Oauth} />
+        <Route path="/findAccount" component={FindAccount}  />
+        <Route path="/resetPassword/:user_id" component={ResetPassword} />
         <Route path="/">
           <Redirect to="/auth" />
         </Route>

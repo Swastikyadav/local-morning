@@ -144,6 +144,32 @@ const API = {
       }
     })
       .then(res => res.json())
+  },
+
+  // Forgot password - send password reset link over email
+  postForgotPassword: (payload) => {
+    return fetch("/api/v1/user/forgotpassword", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(res => res.json())
+  },
+
+  // Reset Password
+  patchResetPassword: (userId ,payload) => {
+    return fetch(`/api/v1/user/resetPassword/${userId}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(res => res.json())
   }
 }
 
