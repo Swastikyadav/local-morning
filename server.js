@@ -36,7 +36,7 @@ module.exports = class Server {
 
   setRoutes() {
     // Have Node serve the files for our built React app
-    this.app.use(express.static(path.resolve(__dirname, "./client/public"))); 
+    this.app.use("/static", express.static(path.resolve(__dirname, "./client/public"))); 
 
     this.app.use("/uploads", express.static("uploads"));
     this.app.use("/api/v1/user", UserRouter);
