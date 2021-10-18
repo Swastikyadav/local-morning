@@ -101,7 +101,14 @@ class UserController {
         data.avatar = `${getEnvVariable().baseUrl}/${avatar[0].path}`;
       }
 
-      const updatedUser = await User.findOneAndUpdate({email: req.user.email}, data, {new: true});
+      const updatedUser = await User.findOneAndUpdate({email: req.user.email}, data, {new: true}).populate({
+        path: "postsId",
+        populate: { path: "authorId" }
+      })
+      .populate({
+        path: "likedPosts",
+        populate: { path: "authorId" }
+      });
       res.status(200).json({updatedUser, success: true});
     } catch (error) {
       next(error);
@@ -113,7 +120,15 @@ class UserController {
       const { newPassword } = req.body;
       const { user_id } = req.user;
 
-      const updatedUser = await User.findByIdAndUpdate(user_id, {password: newPassword}, {new: true});
+      const updatedUser = await User.findByIdAndUpdate(user_id, {password: newPassword}, {new: true})
+      .populate({
+        path: "postsId",
+        populate: { path: "authorId" }
+      })
+      .populate({
+        path: "likedPosts",
+        populate: { path: "authorId" }
+      });
       await updatedUser.save();
 
       res.status(200).json({updatedUser, success: true});
