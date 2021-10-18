@@ -7,13 +7,12 @@
     "start": "nodemon index.js --ignore client",
     "heroku-postbuild": "cd client && yarn && yarn run build"
   },
-  "devDependencies": {
-    "dotenv": "^10.0.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.27.1",
     "datauri": "^4.1.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
     "jsonwebtoken": "^8.5.1",
