@@ -1,6 +1,5 @@
-const getEnvVarible = require("../environments/env");
 const NewsApi = require("newsapi");
-const newsApi = new NewsApi(getEnvVarible().newsApiKey);
+const newsApi = new NewsApi(process.env.newsApiKey);
 
 class NewsApiClass {
   static fetchNews(q) {

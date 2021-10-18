@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const getEnvVariable = require("./environments/env");
 const UserRouter = require("./routes/api/v1/UserRouter");
 const oAuthRouter = require("./routes/api/v1/oAuthRouter");
 const PostRouter = require("./routes/api/v1/PostRouter");
@@ -29,7 +28,7 @@ module.exports = class Server {
   }
 
   connectMongoDb() {
-    mongoose.connect(getEnvVariable().dbUrl)
+    mongoose.connect(process.env.dbUrl)
       .then(() => console.log("Connected to MongoDB cloud database"))
   }
 

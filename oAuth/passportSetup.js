@@ -1,12 +1,11 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const getEnvVariable = require("../environments/env");
 const User = require("../models/userModel");
 
 passport.use(new GoogleStrategy({
-    clientID: getEnvVariable().googleClientId,
-    clientSecret: getEnvVariable().googleCliendSecret,
-    callbackURL: `${getEnvVariable().baseUrl}/api/v1/oAuth/google/callback`
+    clientID: process.env.googleClientId,
+    clientSecret: process.env.googleCliendSecret,
+    callbackURL: `${process.env.baseUrl}/api/v1/oAuth/google/callback`
   },
   function(accessToken, refreshToken, profile, cb) {
     const user = {

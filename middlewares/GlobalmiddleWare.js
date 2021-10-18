@@ -1,6 +1,5 @@
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-const getEnvVariable = require("../environments/env");
 
 class GlobalMiddleWares {
   static checkError(req, res, next) {
@@ -16,7 +15,7 @@ class GlobalMiddleWares {
   }
 
   static generateToken(payload) {
-    return jwt.sign(payload, getEnvVariable().jwtSecret);
+    return jwt.sign(payload, process.env.jwtSecret);
   }
 
   static isNotLoggedIn(req, res, next) {
@@ -36,7 +35,7 @@ class GlobalMiddleWares {
 
     if(token) {
       // Verify Jwt token and get decoded user out of it.
-      jwt.verify(token, getEnvVariable().jwtSecret, (err, decoded) => {
+      jwt.verify(token, process.env.jwtSecret, (err, decoded) => {
         if(err) {
           next(err);
           return;

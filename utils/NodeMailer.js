@@ -1,12 +1,11 @@
 const nodeMailer = require("nodemailer");
 const sendGrid = require("nodemailer-sendgrid-transport");
-const getEnvVariable = require("../environments/env");
 
 class NodeMailer {
   static sendEmail({to, subject, html}) {
     const initializeTransport = nodeMailer.createTransport(sendGrid({
       auth: {
-        api_key: getEnvVariable().sendGridApiKey,
+        api_key: process.env.sendGridApiKey,
       },
     }))
 
