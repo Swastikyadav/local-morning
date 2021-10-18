@@ -36,7 +36,7 @@ module.exports = class Server {
 
   setRoutes() {
     // Have Node serve the files for our built React app
-    this.app.use("/static", express.static(path.resolve(__dirname, "./client/public"))); 
+    this.app.use(express.static(path.resolve(__dirname, "./client/build"))); 
 
     this.app.use("/uploads", express.static("uploads"));
     this.app.use("/api/v1/user", UserRouter);
@@ -46,7 +46,7 @@ module.exports = class Server {
 
     // All other get request not handled before will return our React app
     this.app.get("*", (req, res) => {
-      res.sendFile(path.resolve(__dirname, "./client/public", "index.html"));
+      res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
     });
   }
 
