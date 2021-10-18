@@ -1,6 +1,7 @@
 const Post = require("../models/postModel");
 const User = require("../models/userModel");
 const Tag = require("../models/tagModel");
+const getEnvVariable = require("../environments/env");
 
 class PostController {
   static async createPost(req, res, next) {
@@ -11,7 +12,7 @@ class PostController {
       
       const newPost = await Post.create({
         content,
-        image: image ? `http://localhost:5000/${image[0].path}` : "",
+        image: image ? `${getEnvVariable().baseUrl}/${image[0].path}` : "",
         authorId
       });
       const tagsArray = tags && tags.split(",");

@@ -5,6 +5,8 @@ const devEnvironment = {
   googleClientId: "568866183233-385q4makm9hc823ic0qk4j5b1l40fbtp.apps.googleusercontent.com",
   googleCliendSecret: "ivESTYmnMur_RZPsAg6bwkK4",
   newsApiKey: "eaff2bf5273e498eabaf3fb454e290c0",
+  baseUrl: "http://localhost:5000",
+  frontEndBaseUrl: "http://localhost:3000",
 }
 
 module.exports = devEnvironment;

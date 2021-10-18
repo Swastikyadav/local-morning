@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const { generateToken } = require("../middlewares/GlobalmiddleWare");
+const getEnvVariable = require("../environments/env");
 
 class OauthController {
   static oAuthfailure(req, res, next) {
@@ -15,7 +16,7 @@ class OauthController {
     const jwtToken = generateToken({user_id: _id, email});
 
     // Redirect to frontend
-    res.redirect(`http://localhost:3000/oAuth?t=${jwtToken}`);
+    res.redirect(`${getEnvVariable().frontEndBaseUrl}/oAuth?t=${jwtToken}`);
   }
 }
 

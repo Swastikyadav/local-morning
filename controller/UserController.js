@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const { generateToken } = require("../middlewares/GlobalmiddleWare");
 const NodeMailer = require("../utils/NodeMailer");
+const getEnvVariable = require("../environments/env");
 
 class UserController {
   static async createUser(req, res, next) {
@@ -67,7 +68,7 @@ class UserController {
       await NodeMailer.sendEmail({
         to: [email],
         subject: "Password Reset Link",
-        html: `<p>Hello ${user.name}, Here is your password reset link: <a href="http://localhost:3000/resetPassword/${user._id}">Reset Your Password</a> <small>${user._id}</small>`,
+        html: `<p>Hello ${user.name}, Here is your password reset link: <a href="${getEnvVariable().frontEndBaseUrl}/resetPassword/${user._id}">Reset Your Password</a> <small>${user._id}</small>`,
       });
 
       res.status(200).json({message: "Password reset link sent to email", success: true});
@@ -97,7 +98,7 @@ class UserController {
       let data = { name, bio }
 
       if(avatar) {
-        data.avatar = `http://localhost:5000/${avatar[0].path}`;
+        data.avatar = `${getEnvVariable().baseUrl}/${avatar[0].path}`;
       }
 
       const updatedUser = await User.findOneAndUpdate({email: req.user.email}, data, {new: true});
