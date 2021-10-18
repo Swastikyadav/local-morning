@@ -28,7 +28,15 @@ class PostController {
         }
       });
 
-      const updatedUser = await User.findByIdAndUpdate(newPost.authorId, {$push: { postsId: newPost._id }}, {new: true}).populate("postsId");
+      const updatedUser = await User.findByIdAndUpdate(newPost.authorId, {$push: { postsId: newPost._id }}, {new: true})
+      .populate({
+        path: "postsId",
+        populate: { path: "authorId" }
+      })
+      .populate({
+        path: "likedPosts",
+        populate: { path: "authorId" }
+      });
       
       res.status(200).json({newPost, updatedUser, success: true});
     } catch (error) {
