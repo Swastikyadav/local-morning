@@ -5,6 +5,7 @@ const UserRouter = require("./routes/api/v1/UserRouter");
 const oAuthRouter = require("./routes/api/v1/oAuthRouter");
 const PostRouter = require("./routes/api/v1/PostRouter");
 const NewsRouter = require("./routes/api/v1/NewsRouter");
+const path = require("path");
 const passport = require("passport");
 require("./oAuth/passportSetup");
 
@@ -34,11 +35,19 @@ module.exports = class Server {
   }
 
   setRoutes() {
+    // Have Node serve the files for our built React app
+    this.app.use(express.static(path.resolve(__dirname, "./client/public"))); 
+
     this.app.use("/uploads", express.static("uploads"));
     this.app.use("/api/v1/user", UserRouter);
     this.app.use("/api/v1/oAuth", oAuthRouter);
     this.app.use("/api/v1/post", PostRouter);
     this.app.use("/api/v1/news", NewsRouter);
+
+    // All other get request not handled before will return our React app
+    this.app.get("*", (req, res) => {
+      res.sendFile(path.resolve(__dirname, "./client/public", "index.html"));
+    });
   }
 
   error404Handler() {
