@@ -2,6 +2,8 @@ const User = require("../models/userModel");
 const { generateToken } = require("../middlewares/GlobalmiddleWare");
 const NodeMailer = require("../utils/NodeMailer");
 const getEnvVariable = require("../environments/env");
+const Multer = require("../utils/Multer");
+const cloudinary = require("cloudinary").v2;
 
 class UserController {
   static async createUser(req, res, next) {
@@ -98,7 +100,10 @@ class UserController {
       let data = { name, bio }
 
       if(avatar) {
-        data.avatar = `${getEnvVariable().baseUrl}/${avatar[0].path}`;
+        const file = Multer.dataUri(req).content;
+        const result = await cloudinary.uploader.upload(file);
+
+        data.avatar = result.url;
       }
 
       const updatedUser = await User.findOneAndUpdate({email: req.user.email}, data, {new: true}).populate({

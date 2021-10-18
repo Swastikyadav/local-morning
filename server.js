@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const getEnvVariable = require("./environments/env");
@@ -7,6 +9,7 @@ const PostRouter = require("./routes/api/v1/PostRouter");
 const NewsRouter = require("./routes/api/v1/NewsRouter");
 const path = require("path");
 const passport = require("passport");
+const cloudinary = require("./utils/Cloudinary");
 require("./oAuth/passportSetup");
 
 module.exports = class Server {
@@ -22,6 +25,7 @@ module.exports = class Server {
     this.connectMongoDb();
     this.configureBodyParser();
     this.app.use(passport.initialize());
+    this.app.use(cloudinary.config);
   }
 
   connectMongoDb() {

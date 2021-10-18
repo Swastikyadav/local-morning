@@ -1,7 +1,8 @@
 const Post = require("../models/postModel");
 const User = require("../models/userModel");
 const Tag = require("../models/tagModel");
-const getEnvVariable = require("../environments/env");
+const cloudinary = require("cloudinary").v2;
+const Multer = require("../utils/Multer");
 
 class PostController {
   static async createPost(req, res, next) {
@@ -9,10 +10,18 @@ class PostController {
       req.body.authorId = req.user.user_id;
       const { content, authorId, tags } = req.body;
       const { image } = req.files;
+      let imageUrl = "";
+      
+      if(image) {
+        const file = Multer.dataUri(req).content;
+        const result = await cloudinary.uploader.upload(file);
+
+        imageUrl = result.url;
+      }
       
       const newPost = await Post.create({
         content,
-        image: image ? `${getEnvVariable().baseUrl}/${image[0].path}` : "",
+        image: imageUrl,
         authorId
       });
       const tagsArray = tags && tags.split(",");
